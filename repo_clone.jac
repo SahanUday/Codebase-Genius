@@ -9,9 +9,12 @@ walker main {
         #local_dir = 'D:\\MORA\\Project\\Jac\\Jac-Forest-Fire';
         Repo.clone_from(self.repo_url, self.local_dir);
         print('Repository cloned successfully!');
+        
     }
 }
 
+
+
 with entry {
-    main(repo_url = 'https://github.com/SahanUday/Forest-Fire-Predictor.git',local_dir = 'D:\\MORA\\Project\\Jac\\Jac-Forest-Fire') spawn root;
+    main(repo_url = 'https://github.com/SahanUday/AI-powered-human-occupancy-detection-system.git',local_dir = 'D:\\MORASe\\Project\\Jac\\Jac-Forest-Fire') spawn root;
 }

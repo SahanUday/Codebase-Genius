@@ -1,0 +1,7 @@
+{
+    "files": [
+        "config_template.py",
+        "occupancy_detection.py"
+    ],
+    "folders": {}
+}
