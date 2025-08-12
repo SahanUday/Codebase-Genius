@@ -9,7 +9,7 @@ node init_repo {
     has summary: str = "";
 }
 
-def read_in_chunks(file_path: Any, chunk_size: Any = 150) {
+def read_in_chunks(file_path: any, chunk_size: any = 150) {
     with open(file_path, 'r', encoding='utf-8') as f  { chunk = []; for (line_num, line) in enumerate(f, 1) { chunk.append(line); if ((line_num % chunk_size) == 0) {
         yield ''.join(chunk) ;;
         chunk = [];
@@ -102,7 +102,7 @@ walker get_folder_structure(main) {
 with entry {
     repo = init_repo();
     root ++> repo;
-    get_folder_structure(repo_url = 'https://github.com/SahanUday/Airvix-App.git',repo_dir = 'E:\\GitHub_Repo\\Codebase-Genius\\Jac-Forest-Fire') spawn root;
+    get_folder_structure(repo_url = 'https://github.com/SahanUday/Airvix-App.git',repo_dir = 'E:\\GitHub_Repo\\Codebase-Genius\\AirVix-App') spawn root;
     print("Summary:", repo.summary);
     print("Folder Structure:", repo.folder_structure);
 }

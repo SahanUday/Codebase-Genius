@@ -1,0 +1,15 @@
+# Core dependencies
+jaclang>=0.16.0
+jac-cloud>=0.3.0
+pathlib
+
+# Git integration
+GitPython>=3.1.40
+
+# AI/LLM
+mtllm>=0.0.19
+google-generativeai>=0.4.0
+
+# File processing
+PyYAML>=6.0
+requests>=2.31.0
