@@ -102,10 +102,6 @@ Codebase Genius uses:
 - **Interactive Visualization**: Enable interactive exploration of code structure and relationships.
 - **Web-Based Execution**: Offer a web interface for running analyses and viewing results.
 
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
