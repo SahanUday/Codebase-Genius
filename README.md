@@ -95,12 +95,12 @@ Codebase Genius uses:
 
 ## Future Enhancements
 
-- Multi-repository comparison
-- Code quality assessment
-- Dependency analysis
-- Architectural pattern detection
-- Interactive visualization
-- Integration with development environments
+- **Dependency Analysis**: Automatically identify and map project dependencies.
+- **Architectural Pattern Detection**: Detect common architectural patterns within codebases.
+- **Method Extraction**: Extract and summarize key code methods and functions.
+- **Comprehensive Explanation**: Provide detailed explanations of code components and their interactions.
+- **Interactive Visualization**: Enable interactive exploration of code structure and relationships.
+- **Web-Based Execution**: Offer a web interface for running analyses and viewing results.
 
 ## Contributing
 
