@@ -23,7 +23,7 @@ Codebase Genius helps developers quickly understand unfamiliar codebases by:
 
 * **Jac Language** – Core logic and LLM API handling (`jaclang`, `jac-cloud`)
 * **GitPython** – Git repository integration
-* **Google Gemini AI** – Word generation, checking, and hint explanation (`google-generativeai`)
+* **Google Gemini AI** – Intelligent analysis (`google-generativeai`)
 * **mtllm** – Multi-tool LLM utilities
 * **PyYAML** – YAML file parsing and configuration handling
 * **Requests** – HTTP requests and API calls
