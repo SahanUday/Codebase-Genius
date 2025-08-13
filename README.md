@@ -27,7 +27,7 @@ Codebase Genius helps developers quickly understand unfamiliar codebases by:
 * **mtllm** – Multi-tool LLM utilities
 * **PyYAML** – YAML file parsing and configuration handling
 * **Requests** – HTTP requests and API calls
-* **Python 3.12+** – Backend runtime for Jac
+* **Python 3.8+** – Backend runtime for Jac
 * **VS Code** – Recommended IDE
 
 > ![Python](https://img.shields.io/badge/python-3670A0?logo=python&logoColor=FFFF00)
