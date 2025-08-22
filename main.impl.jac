@@ -1,0 +1,104 @@
+impl main.repo_clone{
+        print("Cloning repository...");
+        #Repo.clone_from(self.repo_url, self.repo_dir);
+        print('Repository cloned successfully!');
+        visit[-->];
+}
+
+impl main.get_summ{
+
+        file_path = 'D:\\GitHub_Repo\\Codebase-Genius\\AirVix-App\\README.md';
+        for (i, chunk_text) in enumerate(read_in_chunks(file_path, 200), 1) { 
+            print("Getting summary...");
+            response = send_to_gemini(chunk_text, here.summary);
+            here.summary = response;
+        }
+}
+
+impl get_folder_structure.access{
+    top_layer: dict ={};
+    print("Accessing folder structure...");
+    repo_path = Path('D:\GitHub_Repo\Codebase-Genius\AirVix-App');
+    # top_layer = filter_toplayer_files_folders(repo_path,here.summary);
+    # print(top_layer);
+    here.folder_structure = get_filtered_folder_structure(repo_path,here.summary);
+    visit[-->];
+}
+
+impl get_codebase.get_c {
+        print("Accessing codebase...");
+        here.code_base = read_files_from_list(repo.folder_structure);
+        print("Codebase accessed successfully!");
+        visit[-->];
+}
+
+impl IdentifyAbstractions.identify {
+        # for (file_name,file_content) in code.code_base.items() {
+        #     print("Identifying abstractions...");
+        #     updated_abstractions = extract_abstractions(file_content, file_name,here.abstractions);
+        #     here.abstractions = updated_abstractions;
+        #     print(here.abstractions);
+        # }
+        updated_abstractions = extract_abstractions(code.code_base);
+        here.abstractions = updated_abstractions;
+        print(here.abstractions);
+
+        print("Abstractions identified successfully!");
+}
+
+impl read_files_from_list(file_paths: list[ str ]) -> dict {
+    files_dict = {};
+    total_files = len(file_paths);
+    processed_files = 0;
+    for filepath in file_paths {
+        relpath = os.path.basename(filepath);
+        status ='processed';
+        with open(filepath, 'r', encoding='utf-8-sig') as f {
+            content = f.read();
+        }
+        files_dict[ relpath ] = [content];
+        processed_files += 1;
+        if (total_files > 0) {
+            percentage = ((processed_files / total_files) * 100);
+            rounded_percentage = int(percentage);
+            print(f"Progress: {processed_files}/{total_files} ({rounded_percentage}%) {relpath} [{status}]");
+        }
+    }
+
+    print(f"'\nFound '{len(files_dict)}' readable files:'");
+    for path in files_dict { print(f"'  '{path}"); }
+    return files_dict;
+}
+
+impl get_top_level_structure_dict(repo_path: str) -> dict {
+    repo_path = Path(repo_path).resolve();
+    structure = {'folders' : [] , 'files' : [] };
+    for item in sorted(repo_path.iterdir()) { if item.is_dir() {
+        structure[ 'folders' ].append((item.name));
+    } else {
+        structure[ 'files' ].append(item.name);
+    }  }
+    return structure;
+}
+
+impl get_all_file_paths(repo_path: str) -> list {
+    repo_path = Path(repo_path);
+    all_files = [];
+    if (repo_path.exists() and repo_path.is_dir() ) {
+        for file_path in repo_path.rglob('*') { 
+            if file_path.is_file() {
+                all_files.append(str(file_path.resolve()));
+            }
+        }
+    }
+    return all_files;
+}
+
+impl read_in_chunks(file_path: any, chunk_size: any = 150) {
+    with open(file_path, 'r', encoding='utf-8') as f  { chunk = []; for (line_num, line) in enumerate(f, 1) { chunk.append(line); if ((line_num % chunk_size) == 0) {
+        yield ''.join(chunk) ;;
+        chunk = [];
+    } }  if chunk {
+        yield ''.join(chunk) ;;
+    } }
+}
