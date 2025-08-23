@@ -34,6 +34,16 @@ obj Rels {
     has label: str;
 }
 
+node documentation {
+    has chapter_order: list = [];
+    has chapters: list = [];
+}
+
+obj Chaps {
+    has chapter_number: int;
+    has title: str;
+    has content: str;
+}
 
 def read_in_chunks(file_path: any, chunk_size: any = 150);
 
@@ -59,7 +69,7 @@ def get_all_file_paths(repo_path: str) -> list();
 """
 Given a cloned GitHub repository path and a project summary, 
 identify and filter out non-essential files. You can use get_top_level_structure_dict tool for obtaining the top layer of the file/folder structure and get_all_file_paths tool for getting all file paths in the repository. Also use summary for understanding the project context.
-Return a list of only the meaningful source code files that are crucial for understanding the project's logic and abstractions. Exclude documentation, configuration, test, and dependency files.""" 
+Return a list of only the meaningful source code files that are crucial for understanding the project's logic and abstractions. Exclude documentationumentation, configuration, test, and dependency files.""" 
 def get_filtered_folder_structure(repo_path: str = '.', summary: str = '') -> list by llm(method="ReAct", tools=[get_top_level_structure_dict, get_all_file_paths]);
 
 def read_files_from_list(file_paths: list[ str ]) -> dict();
@@ -75,6 +85,13 @@ Obtain given project abstractions, code snippets and identify key relationships 
 Each relationship should show a from_abstraction, to_abstraction, and a brief label(A brief (a few words) description of the interaction).
 """
 def get_relationships(abstractions: list, code_snippets: dict) -> list[Rels] by llm(method="Reason");
+
+"""
+Obtain given the project summary, abstractions, and their relationships,
+Determine best order to explain this project in a tutorial.
+Output the ordered list of abstraction indices
+"""
+def chapter_ordering(summary: str, abstractions: list, relationships: list) -> list[int] by llm(method="Reason");
 
 walker main {
     has repo_url: str;
@@ -101,9 +118,12 @@ walker IdentifyAbstractions(get_codebase) {
 
 walker AnalyzeRelationships(IdentifyAbstractions) {
     
-    can analyze with relationships entry {
+    can analyze with relationships entry;
+}
 
-    }
+walker DocGenerator(AnalyzeRelationships) {
+    
+    can ordering with documentation entry;
 }
 
 with entry {
@@ -111,13 +131,16 @@ with entry {
     code = codebase();
     abst = abstracted();
     rel = relationships();
-    root ++> repo ++> code ++> abst ++> rel ;
-    AnalyzeRelationships(repo_url = 'https://github.com/SahanUday/Airvix-App.git',repo_dir = 'E:\\GitHub_Repo\\Codebase-Genius\\AirVix-App') spawn root;
+    doc = documentation();
+
+    root ++> repo ++> code ++> abst ++> rel ++> doc;
+    DocGenerator(repo_url = 'https://github.com/SahanUday/Airvix-App.git',repo_dir = 'E:\\GitHub_Repo\\Codebase-Genius\\AirVix-App') spawn root;
     # print("Summary:", repo.summary);
     # print("Folder Structure:", repo.folder_structure);
-    #print("Codebase:", code.code_base);
+    # print("Codebase:", code.code_base);
     print("Abstractions:");
     print("Abstractions:", abst.abstractions);
     print("Relationships:");
     print("Relationships:", rel.relationships);
+    print("Chapter Order:", doc.chapter_order);
 }

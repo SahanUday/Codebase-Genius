@@ -44,8 +44,8 @@ impl IdentifyAbstractions.identify {
         updated_abstractions = extract_abstractions(code.code_base);
         here.abstractions = updated_abstractions;
         #print(here.abstractions);
-        print("Abstractions identified successfully!");
-        print("Abstractions:", here.abstractions);
+        # print("Abstractions identified successfully!");
+        # print("Abstractions:", here.abstractions);
         visit[-->];
 }
 
@@ -53,6 +53,13 @@ impl AnalyzeRelationships.analyze {
         print("Analyzing relationships...");
         here.relationships = get_relationships(abst.abstractions, code.code_base);
         print("Relationships analyzed successfully!");
+        visit[-->];
+}
+
+impl DocGenerator.ordering {
+        print("Generating documentation...");
+        here.chapter_order = chapter_ordering(repo.summary, abst.abstractions, rel.relationships);
+        print("Documentation generated successfully!");
         #visit[-->];
 }
 
