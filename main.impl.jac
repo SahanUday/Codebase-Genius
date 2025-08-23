@@ -7,7 +7,7 @@ impl main.repo_clone{
 
 impl main.get_summ{
 
-        file_path = 'D:\\GitHub_Repo\\Codebase-Genius\\AirVix-App\\README.md';
+        file_path = 'E:\\GitHub_Repo\\Codebase-Genius\\AirVix-App\\README.md';
         for (i, chunk_text) in enumerate(read_in_chunks(file_path, 200), 1) { 
             print("Getting summary...");
             response = send_to_gemini(chunk_text, here.summary);
@@ -18,10 +18,11 @@ impl main.get_summ{
 impl get_folder_structure.access{
     top_layer: dict ={};
     print("Accessing folder structure...");
-    repo_path = Path('D:\GitHub_Repo\Codebase-Genius\AirVix-App');
+    repo_path = Path('E:\GitHub_Repo\Codebase-Genius\AirVix-App');
     # top_layer = filter_toplayer_files_folders(repo_path,here.summary);
     # print(top_layer);
     here.folder_structure = get_filtered_folder_structure(repo_path,here.summary);
+    print("Folder structure accessed successfully!");
     visit[-->];
 }
 

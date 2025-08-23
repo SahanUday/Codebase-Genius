@@ -15,7 +15,13 @@ node codebase {
 }
 
 node abstractions {
-    has abstractions: dict = {};
+    has abstractions: list = [];
+}
+
+obj Absts {
+    has name: str;
+    has description: str;
+    has related_files: list[str];
 }
 
 node relationships {
@@ -55,15 +61,11 @@ def read_files_from_list(file_paths: list[ str ]) -> dict();
 
 """
 Obtain all_codes and identify new abstractions, minimum 5 or 6.
-For each abstraction, include its name, a short description (under 50 words with an analogy), and a list of related_files.
+For each abstraction, include its name, a short description (under 200 words with an analogy), and a list of related_files.
 The final output must be contain name, description, and related_files.
-output response dictionary format is {
-    {"name": "Abstraction Name",
-    "description": "Short description of the abstraction.",
-    "related_files": ["file1.py", "file2.py"]}
-}
+Give the output response as dictionaries of list.
 """
-def extract_abstractions(all_codes: dict) -> dict by llm();
+def extract_abstractions(all_codes: dict) -> list[Absts] by llm();
 
 # def get_relationships(relation: dict, code_snippets: dict) -> dict by llm();
 
@@ -103,7 +105,7 @@ with entry {
     abst = abstractions();
     rel = relationships();
     root ++> repo ++> code ++> abst ++> rel ;
-    IdentifyAbstractions(repo_url = 'https://github.com/SahanUday/Airvix-App.git',repo_dir = 'D:\\GitHub_Repo\\Codebase-Genius\\AirVix-App') spawn root;
+    IdentifyAbstractions(repo_url = 'https://github.com/SahanUday/Airvix-App.git',repo_dir = 'E:\\GitHub_Repo\\Codebase-Genius\\AirVix-App') spawn root;
     # print("Summary:", repo.summary);
     # print("Folder Structure:", repo.folder_structure);
     #print("Codebase:", code.code_base);
