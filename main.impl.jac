@@ -40,11 +40,20 @@ impl IdentifyAbstractions.identify {
         #     here.abstractions = updated_abstractions;
         #     print(here.abstractions);
         # }
+        print("Identifying abstractions...");
         updated_abstractions = extract_abstractions(code.code_base);
         here.abstractions = updated_abstractions;
-        print(here.abstractions);
-
+        #print(here.abstractions);
         print("Abstractions identified successfully!");
+        print("Abstractions:", here.abstractions);
+        visit[-->];
+}
+
+impl AnalyzeRelationships.analyze {
+        print("Analyzing relationships...");
+        here.relationships = get_relationships(abst.abstractions, code.code_base);
+        print("Relationships analyzed successfully!");
+        #visit[-->];
 }
 
 impl read_files_from_list(file_paths: list[ str ]) -> dict {

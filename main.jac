@@ -14,7 +14,7 @@ node codebase {
     has code_base: dict = {};
 }
 
-node abstractions {
+node abstracted {
     has abstractions: list = [];
 }
 
@@ -25,7 +25,13 @@ obj Absts {
 }
 
 node relationships {
-    has relationships: list[dict] = [];
+    has relationships: list = [];
+}
+
+obj Rels {
+    has from_abstraction: str;
+    has to_abstraction: str;
+    has label: str;
 }
 
 
@@ -59,15 +65,16 @@ def get_filtered_folder_structure(repo_path: str = '.', summary: str = '') -> li
 def read_files_from_list(file_paths: list[ str ]) -> dict();
 
 
-"""
-Obtain all_codes and identify new abstractions, minimum 5 or 6.
+"""Obtain all_codes and identify new abstractions, minimum 5 or 6.
 For each abstraction, include its name, a short description (under 200 words with an analogy), and a list of related_files.
-The final output must be contain name, description, and related_files.
-Give the output response as dictionaries of list.
 """
-def extract_abstractions(all_codes: dict) -> list[Absts] by llm();
+def extract_abstractions(all_codes: dict) -> list[Absts] by llm(method="Reason");
 
-# def get_relationships(relation: dict, code_snippets: dict) -> dict by llm();
+"""
+Obtain given project abstractions, code snippets and identify key relationships between the abstractions for understanding best order of abstractions to explain. 
+Each relationship should show a from_abstraction, to_abstraction, and a brief label(A brief (a few words) description of the interaction).
+"""
+def get_relationships(abstractions: list, code_snippets: dict) -> list[Rels] by llm(method="Reason");
 
 walker main {
     has repo_url: str;
@@ -89,7 +96,7 @@ walker get_codebase(get_folder_structure) {
 
 walker IdentifyAbstractions(get_codebase) {
 
-    can identify with abstractions entry;
+    can identify with abstracted entry;
 }
 
 walker AnalyzeRelationships(IdentifyAbstractions) {
@@ -102,12 +109,15 @@ walker AnalyzeRelationships(IdentifyAbstractions) {
 with entry {
     repo = init_repo();
     code = codebase();
-    abst = abstractions();
+    abst = abstracted();
     rel = relationships();
     root ++> repo ++> code ++> abst ++> rel ;
-    IdentifyAbstractions(repo_url = 'https://github.com/SahanUday/Airvix-App.git',repo_dir = 'E:\\GitHub_Repo\\Codebase-Genius\\AirVix-App') spawn root;
+    AnalyzeRelationships(repo_url = 'https://github.com/SahanUday/Airvix-App.git',repo_dir = 'E:\\GitHub_Repo\\Codebase-Genius\\AirVix-App') spawn root;
     # print("Summary:", repo.summary);
     # print("Folder Structure:", repo.folder_structure);
     #print("Codebase:", code.code_base);
+    print("Abstractions:");
     print("Abstractions:", abst.abstractions);
+    print("Relationships:");
+    print("Relationships:", rel.relationships);
 }
