@@ -57,9 +57,15 @@ impl AnalyzeRelationships.analyze {
 }
 
 impl DocGenerator.ordering {
-        print("Generating documentation...");
+        print("Getting Order of the Chapters for documentation...");
         here.chapter_order = chapter_ordering(repo.summary, abst.abstractions, rel.relationships);
-        print("Documentation generated successfully!");
+
+        ordered_abstractions = [abst.abstractions[i] for i in here.chapter_order];
+        print(ordered_abstractions);
+
+        print("Generating drafted chapters...");
+        here.drafted_chapters= chapter_drafting(ordered_abstractions, code.code_base);
+
         #visit[-->];
 }
 
