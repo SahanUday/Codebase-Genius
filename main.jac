@@ -44,8 +44,8 @@ obj Cformat {
     has transition_section_from_previous: str="";
     has highlevel_explanation_section: str="";
     has key_concepts_section: str="";
-    has usecases_section: list[str]=[];
-    has mermaid_diagram_section: list[str]=[];
+    has usecases_section: str="";
+    has mermaid_diagram_section: str="";
     has ending_section: str="";
     has transition_section_to_next_chapter: str="";
 }
@@ -95,18 +95,25 @@ def chapter_ordering(summary: str, all_abstractions: list, all_relationships: li
 # Generate drafted chapter as the Cformat object."""
 # def chapter_drafting(abstractions_list: list, all_code_base: dict, previous_chapter: list, next_chapter: list) -> list[Cformat] by llm(method="Reason");
 
+def get_relavent_codes(each_abstraction: Absts) -> dict {
+    code_list = each_abstraction.related_files;
+    codes = {key: code.code_base[key] for key in code_list};
+    return all_codes;
+}
+
 sem Cformat = "Cformat is a structured format for drafted chapters.";
 sem Cformat.heading = "Clear heading of the chapter for providing concept name";
-sem Cformat.transition_section_from_previous = "If this is not the first chapter, begin with a brief transition from the previous chapter. If this is Chapter 1, provide an introduction.";
-sem Cformat.highlevel_explanation_section = "Begin with a high-level motivation explaining what problem this abstraction solves and why it is important.";
-sem Cformat.key_concepts_section = "break down into key concepts. Explain each concept one-by-one in a very beginner-friendly way.";
-sem Cformat.usecases_section = "Explain how to use this abstraction to solve the use case. Also give example inputs and outputs.";
-sem Cformat.mermaid_diagram_section = "Use mermaid diagrams to illustrate complex concepts (```mermaid``` format), each diagram as the element of list.";
-sem Cformat.ending_section = "brief conclusion that summarizes what was learned";
-sem Cformat.transition_section_to_next_chapter = "If this is not the last chapter, end with a brief transition to the next chapter. If this is the last chapter, provide a conclusion.";
+sem Cformat.transition_section_from_previous = "If this is not the first chapter, begin with a brief transition from the previous chapter about under 50 words. If this is Chapter 1, provide an introduction about under 75 words.";
+sem Cformat.highlevel_explanation_section = "Begin with a high-level motivation explaining what problem this abstraction solves and why it is important, about under 150 words.";
+sem Cformat.key_concepts_section = "break down into key concepts. Explain each concept one-by-one in a very beginner-friendly way about under 100 words for each.";
+sem Cformat.usecases_section = "Explain how to use this abstraction to solve the use case about under 200 words. Also give example inputs and outputs.";
+sem Cformat.mermaid_diagram_section = "Use mermaid diagrams to illustrate complex concepts (```mermaid``` format).";
+sem Cformat.ending_section = "brief conclusion that summarizes what was learned about under 100 words.";
+sem Cformat.transition_section_to_next_chapter = "If this is not the last chapter, end with a brief transition to the next chapter about under 50 words. If this is the last chapter, provide a conclusion about under 100 words.";
 
-"""Obtain the abstractions list, codebase relevant code file and generate the drafted chapters as Cformat objects"""
-def chapter_drafting(abstractions_list: list, all_code_base: dict) -> list[Cformat] by llm();
+"""Obtain the abstractions list and in abstractions_list, generate drafted chapters as Cformat objects for each abstraction (each_abstraction)
+To get the relevant code snippets for each chapter (for each abstraction, each_abstraction= one element of the abstractions_list at once), use the get_relavent_codes function."""
+def chapter_drafting(abstractions_list: list) -> list[Cformat] by llm(method="ReAct", tools=[get_relavent_codes]);
 
 walker main {
     has repo_url: str;
