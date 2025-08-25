@@ -21,7 +21,7 @@ node abstracted {
 obj Absts {
     has name: str;
     has description: str;
-    has related_files: list[str];
+    has related_files: list[];
 }
 
 node relationships {
@@ -45,6 +45,7 @@ obj Cformat {
     has highlevel_explanation_section: str="";
     has key_concepts_section: str="";
     has usecases_section: str="";
+    has example_code_snippets: str="";
     has mermaid_diagram_section: str="";
     has ending_section: str="";
     has transition_section_to_next_chapter: str="";
@@ -72,9 +73,9 @@ def get_all_file_paths(repo_path: str) -> list();
 
 
 """Given a cloned GitHub repository path and a project summary, 
-identify and filter out non-essential files. You can use get_top_level_structure_dict tool for obtaining the top layer of the file/folder structure and get_all_file_paths tool for getting all file paths in the repository. Also use summary for understanding the project context.
+identify and filter out non-essential files. You can use get_all_file_paths tool for getting all file paths in the repository. Also use summary for understanding the project context.
 Return a list of only the meaningful source code files that are crucial for understanding the project's logic and abstractions. Exclude documentationumentation, configuration, test, and dependency files.""" 
-def get_filtered_folder_structure(repo_path: str = '.', summary: str = '') -> list by llm(method="ReAct", tools=[get_top_level_structure_dict, get_all_file_paths]);
+def get_filtered_folder_structure(repo_path: str = '.', summary: str = '') -> list by llm(method="ReAct", tools=[get_all_file_paths]);
 
 def read_files_from_list(file_paths: list[ str ]) -> dict();
 
@@ -95,28 +96,28 @@ def chapter_ordering(summary: str, all_abstractions: list, all_relationships: li
 # Generate drafted chapter as the Cformat object."""
 # def chapter_drafting(abstractions_list: list, all_code_base: dict, previous_chapter: list, next_chapter: list) -> list[Cformat] by llm(method="Reason");
 
-def get_relavent_codes(abstractions_list: list) -> dict {
-    file_names = [];
-    for abs in abstractions_list {
-        file_names=list(set(file_names + abs.related_files));
-    }
-    all_code_snippets = {key: code.code_base[key] for key in file_names};
-    return all_code_snippets;
-}
+# def get_relavent_codes(abstractions_list: list) -> dict {
+#     file_names = [];
+#     for abs in abstractions_list {
+#         file_names=list(set(file_names + abs.related_files));
+#     }
+#     all_code_snippets = {key: code.code_base[key] for key in file_names};
+#     return all_code_snippets;
+# }
 
-sem Cformat = "Cformat is a structured format for drafted chapters.";
-sem Cformat.heading = "Clear heading of the chapter for providing concept name";
-sem Cformat.transition_section_from_previous = "If this is not the first chapter, begin with a brief transition from the previous chapter about under 50 words. If this is Chapter 1, provide an introduction about under 75 words.";
-sem Cformat.highlevel_explanation_section = "Begin with a high-level motivation explaining what problem this abstraction solves and why it is important, about under 150 words.";
-sem Cformat.key_concepts_section = "break down into key concepts. Explain each concept one-by-one in a very beginner-friendly way about under 100 words for each.";
-sem Cformat.usecases_section = "Explain how to use this abstraction to solve the use case about under 200 words. Also give example inputs and outputs.";
-sem Cformat.mermaid_diagram_section = "Use mermaid diagrams to illustrate complex concepts (```mermaid``` format).";
-sem Cformat.ending_section = "brief conclusion that summarizes what was learned about under 100 words.";
-sem Cformat.transition_section_to_next_chapter = "If this is not the last chapter, end with a brief transition to the next chapter about under 50 words. If this is the last chapter, provide a conclusion about under 100 words.";
+# sem Cformat = "Cformat is a structured format for drafted chapters.";
+# sem Cformat.heading = "Clear heading of the chapter for providing concept name";
+# sem Cformat.transition_section_from_previous = "If this is not the first chapter, begin with a brief transition from the previous chapter about under 50 words. If this is Chapter 1, provide an introduction about under 75 words.";
+# sem Cformat.highlevel_explanation_section = "Begin with a high-level motivation explaining what problem this abstraction solves and why it is important, about under 150 words.";
+# sem Cformat.key_concepts_section = "break down into key concepts. Explain each concept one-by-one in a very beginner-friendly way about under 100 words for each.";
+# #sem Cformat.usecases_section = "Explain how to use this abstraction to solve the use case about under 200 words. Also give example inputs and outputs.";
+# sem Cformat.mermaid_diagram_section = "Use mermaid diagrams to illustrate complex concepts (```mermaid``` format).";
+# sem Cformat.ending_section = "brief conclusion that summarizes what was learned about under 100 words.";
+# sem Cformat.transition_section_to_next_chapter = "If this is not the last chapter, end with a brief transition to the next chapter about under 50 words. If this is the last chapter, provide a conclusion about under 100 words.";
 
-"""Obtain the abstractions_list and using abstractions_list and relevant all_code_snippets by get_relavent_codes tool, generate drafted chapters as Cformat objects for each abstractions in the abstractions_list. Output the list of Cformat objects.
-To get the relevant all_code_snippets for generating drafted chapters, use the get_relavent_codes function."""
-def chapter_drafting(abstractions_list: list) -> list[Cformat] by llm(method="ReAct", tools=[get_relavent_codes]);
+"""Obtain the abstractions_list and all_code_snippets, and using then generate drafted chapters as Cformat objects for each abstractions in the abstractions_list. 
+Output the list of Cformat objects."""
+def chapter_drafting(abstractions_list: list, all_code_snippets: dict) -> list[Cformat] by llm();
 
 walker main {
     has repo_url: str;

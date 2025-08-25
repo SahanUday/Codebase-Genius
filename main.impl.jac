@@ -86,7 +86,7 @@ impl DocGenerator.ordering {
         # print("Drafted chapters generated successfully!");
 
         print("Generating drafted chapters...");
-        here.drafted_chapters= chapter_drafting(ordered_abstractions);
+        here.drafted_chapters= chapter_drafting(ordered_abstractions, code.code_base);
 
         #visit[-->];
 }
