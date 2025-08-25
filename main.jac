@@ -95,10 +95,13 @@ def chapter_ordering(summary: str, all_abstractions: list, all_relationships: li
 # Generate drafted chapter as the Cformat object."""
 # def chapter_drafting(abstractions_list: list, all_code_base: dict, previous_chapter: list, next_chapter: list) -> list[Cformat] by llm(method="Reason");
 
-def get_relavent_codes(each_abstraction: Absts) -> dict {
-    code_list = each_abstraction.related_files;
-    codes = {key: code.code_base[key] for key in code_list};
-    return all_codes;
+def get_relavent_codes(abstractions_list: list) -> dict {
+    file_names = [];
+    for abs in abstractions_list {
+        file_names=list(set(file_names + abs.related_files));
+    }
+    all_code_snippets = {key: code.code_base[key] for key in file_names};
+    return all_code_snippets;
 }
 
 sem Cformat = "Cformat is a structured format for drafted chapters.";
@@ -111,8 +114,8 @@ sem Cformat.mermaid_diagram_section = "Use mermaid diagrams to illustrate comple
 sem Cformat.ending_section = "brief conclusion that summarizes what was learned about under 100 words.";
 sem Cformat.transition_section_to_next_chapter = "If this is not the last chapter, end with a brief transition to the next chapter about under 50 words. If this is the last chapter, provide a conclusion about under 100 words.";
 
-"""Obtain the abstractions list and in abstractions_list, generate drafted chapters as Cformat objects for each abstraction (each_abstraction)
-To get the relevant code snippets for each chapter (for each abstraction, each_abstraction= one element of the abstractions_list at once), use the get_relavent_codes function."""
+"""Obtain the abstractions_list and using abstractions_list and relevant all_code_snippets by get_relavent_codes tool, generate drafted chapters as Cformat objects for each abstractions in the abstractions_list. Output the list of Cformat objects.
+To get the relevant all_code_snippets for generating drafted chapters, use the get_relavent_codes function."""
 def chapter_drafting(abstractions_list: list) -> list[Cformat] by llm(method="ReAct", tools=[get_relavent_codes]);
 
 walker main {
