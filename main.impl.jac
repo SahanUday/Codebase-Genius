@@ -51,7 +51,7 @@ impl IdentifyAbstractions.identify {
 
 impl AnalyzeRelationships.analyze {
         print("Analyzing relationships...");
-        here.relationships = get_relationships(abst.abstractions, code.code_base);
+        here.relationships = get_relationships(abst.abstractions);
         print("Relationships analyzed successfully!");
         visit[-->];
 }
@@ -59,9 +59,31 @@ impl AnalyzeRelationships.analyze {
 impl DocGenerator.ordering {
         print("Getting Order of the Chapters for documentation...");
         here.chapter_order = chapter_ordering(repo.summary, abst.abstractions, rel.relationships);
+        print("Chapter order obtained successfully!");
 
         ordered_abstractions = [abst.abstractions[i] for i in here.chapter_order];
-        print(ordered_abstractions);
+        # print(ordered_abstractions);
+
+        # for abs in ordered_abstractions {
+        #     code_list = abs.related_files;
+        #     codes = {key: code.code_base[key] for key in code_list};
+
+        #     if len(here.drafted_chapters) > 0 {
+        #         previous_chapter = here.drafted_chapters[-1];
+        #     } else {
+        #         previous_chapter = "No previous chapter, this is the first chapter.";
+        #     }
+
+        #     if ordered_abstractions.index(abs) < len(ordered_abstractions) - 1 {
+        #         next_chapter = ordered_abstractions[ordered_abstractions.index(abs) + 1];
+        #     } else {
+        #         next_chapter = "No next chapter, this is the last chapter.";
+        #     }
+
+        #     print("Generating drafted chapters...");
+        #     here.drafted_chapters.append(chapter_drafting([abs], codes, [previous_chapter], [next_chapter]));
+        # }
+        # print("Drafted chapters generated successfully!");
 
         print("Generating drafted chapters...");
         here.drafted_chapters= chapter_drafting(ordered_abstractions, code.code_base);

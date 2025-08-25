@@ -12,5 +12,6 @@ rels_list = [
 ]
 
 # access the first element's label
-first_label = rels_list[0].label
-print(first_label) 
+a= rels_list[0]
+print(rels_list.index(a))
+
