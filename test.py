@@ -1,5 +1,2 @@
-l1 =[1,2,3,4]
-l2 = [5,1,3]
-l3 = [9,10,11,12]
-
-print(l1+l2)
+s1 ="E:\\GitHub_Repo\\Codebase-Genius\\AirVix-App"
+print(s1+"\\file.txt")

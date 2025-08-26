@@ -21,7 +21,7 @@ node abstracted {
 obj Absts {
     has name: str;
     has description: str;
-    has related_files: list[];
+    has related_files: list;
 }
 
 node relationships {
@@ -43,12 +43,21 @@ obj Cformat {
     has heading: str;
     #has transition_section_from_previous: str;
     has highlevel_explanation_section: str;
-    has key_concepts_section: str;
+    #has key_concepts_section: str;
     #has usecases_section: str;
-    has example_code_snippets: str;
+    #has example_code_snippets: str;
     has mermaid_diagram_section: str;
     #has ending_section: str;
     #has transition_section_to_next_chapter: str;
+}
+
+node tutorial {
+    has chapters: list = [];
+}
+
+obj Chapter {
+    has title: str;
+    has content: str;
 }
 
 def read_in_chunks(file_path: any, chunk_size: any = 150);
@@ -80,12 +89,12 @@ def get_filtered_folder_structure(repo_path: str = '.', summary: str = '') -> li
 def read_files_from_list(file_paths: list[ str ]) -> dict();
 
 
-"""Obtain all_codes and identify new abstractions atleast 5 or 6.Generate each abstractions as Absts objects."""
-def extract_abstractions(all_codes: dict) -> list[Absts] by llm(method="Reason");
+"""Obtain all_codes and identify new abstractions atleast 5 or 6."""
+def extract_abstractions(all_codes: dict) -> list[Absts] by llm(method='Reason');
 
 """Obtain given project abstractions and identify key relationships between the abstractions for understanding best order of abstractions to explain. 
 Each relationship should show a from_abstraction, to_abstraction, and a brief label(A brief (a few words) description of the interaction)."""
-def get_relationships(abstractions: list) -> list[Rels] by llm(method="Reason");
+def get_relationships(abstractions: list) -> list[Rels] by llm(method='Reason');
 
 """Obtain given the project summary, all abstractions, and their all relationships,
 Determine best order to explain this project in a tutorial.
@@ -107,18 +116,24 @@ def chapter_ordering(summary: str, all_abstractions: list, all_relationships: li
 
 sem Cformat = "Cformat is a structured format for drafted chapters.";
 sem Cformat.heading = "Clear heading of the chapter for providing chapter name";
-# sem Cformat.transition_section_from_previous = "If this is not the first chapter, begin with a brief transition from the previous chapter about under 50 words. If this is Chapter 1, provide an introduction about under 75 words.";
-sem Cformat.highlevel_explanation_section = "Begin with a high-level motivation explaining what problem this abstraction solves and why it is important, about under 300 words.";
-sem Cformat.key_concepts_section = "break down into key concepts. Explain each concept one-by-one in a very beginner-friendly way about under 500 words for each.";
-# #sem Cformat.usecases_section = "Explain how to use this abstraction to solve the use case about under 200 words. Also give example inputs and outputs.";
-sem Cformat.mermaid_diagram_section = "Use mermaid diagrams to illustrate complex concepts (```mermaid``` format).";
-sem Cformat.example_code_snippets = "Provide relevant example code snippets, not exact codes just sample codes.";
-# sem Cformat.ending_section = "brief conclusion that summarizes what was learned about under 100 words.";
-# sem Cformat.transition_section_to_next_chapter = "If this is not the last chapter, end with a brief transition to the next chapter about under 50 words. If this is the last chapter, provide a conclusion about under 100 words.";
+#sem Cformat.transition_section_from_previous = "If this is not the first chapter, Brief transition from the previous chapter. If this is Chapter 1, Introduction.";
+sem Cformat.highlevel_explanation_section = "High-level motivation explaining about the chapter content";
+#sem Cformat.key_concepts_section = "break down into key concepts. Explain each concept one-by-one in a very beginner-friendly way.";
+#sem Cformat.usecases_section = "Explain how to use this chapter to solve the use case.";
+sem Cformat.mermaid_diagram_section = "Mermaid diagrams to illustrate complex concepts.";
+#sem Cformat.example_code_snippets = "Example code snippets, not exact codes just sample codes.";
+#sem Cformat.ending_section = "brief conclusion that summarizes what was learned.";
+#sem Cformat.transition_section_to_next_chapter = "If this is not the last chapter, end with a brief transition to the next chapter. If this is the last chapter, provide a conclusion about what was learned.";
 
-"""Obtain the abstractions_list and all_code_snippets, and using them generate drafted chapters as Cformat objects for each abstractions in the abstractions_list. 
-Output the list of Cformat objects."""
-def chapter_drafting(abstractions_list: list, all_code_snippets: dict) -> list[Cformat] by llm();
+"""Obtain the abstractions_list and all_code_snippets, generate drafted chapters for each elements in the abstractions_list. """
+def chapter_drafting(abstractions_list: list, all_code_snippets: dict) -> list[Cformat] by llm(method='Reason');
+
+sem Chapter = "complete Chapter for the tutorial in markdown format.";
+sem Chapter.title = "Clear and concise title of the chapter.";
+sem Chapter.content = "Comprehensive content of the chapter in a cohesive manner including smooth transitions between chapters.";
+
+"""Obtain all_drafted_chapters and generate a beginner friendly complete chapters including smooth transitions and consistent tone."""
+def generate_tutorial(all_drafted_chapters: list) -> list[Chapter] by llm(method='Reason');
 
 walker main {
     has repo_url: str;
@@ -129,6 +144,7 @@ walker main {
 }
 
 walker get_folder_structure(main) {
+    has repo_dir: str;
 
     can access with init_repo entry;
 }
@@ -153,15 +169,22 @@ walker DocGenerator(AnalyzeRelationships) {
     can ordering with documentation entry;
 }
 
+walker TutorialGenerator(DocGenerator) {
+
+    can generate with tutorial entry;
+}
+
 with entry {
     repo = init_repo();
     code = codebase();
     abst = abstracted();
     rel = relationships();
     doc = documentation();
+    tute = tutorial();
 
-    root ++> repo ++> code ++> abst ++> rel ++> doc;
-    DocGenerator(repo_url = 'https://github.com/SahanUday/Airvix-App.git',repo_dir = 'E:\\GitHub_Repo\\Codebase-Genius\\AirVix-App') spawn root;
+
+    root ++> repo ++> code ++> abst ++> rel ++> doc ++> tute;
+    TutorialGenerator(repo_url = 'https://github.com/SahanUday/Airvix-App.git',repo_dir = 'E:\GitHub_Repo\Codebase-Genius\AirVix-App') spawn root;
     # print("Summary:", repo.summary);
     # print("Folder Structure:", repo.folder_structure);
     # print("Codebase:", code.code_base);
@@ -170,6 +193,8 @@ with entry {
     # print("Relationships:");
     # print("Relationships:", rel.relationships);
     # print("Chapter Order:", doc.chapter_order);
-    print("Drafted Chapters:");
-    print(doc.drafted_chapters);
+    # print("Drafted Chapters:");
+    # print(doc.drafted_chapters);
+    print("Tutorial Chapters:");
+    print(tute.chapters);
 }

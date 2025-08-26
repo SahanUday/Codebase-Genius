@@ -1,13 +1,13 @@
 impl main.repo_clone{
         print("Cloning repository...");
-        #Repo.clone_from(self.repo_url, self.repo_dir);
+        #Repo.clone_from(self.repo_url, Path(self.repo_dir));
         print('Repository cloned successfully!');
         visit[-->];
 }
 
 impl main.get_summ{
 
-        file_path = 'E:\\GitHub_Repo\\Codebase-Genius\\AirVix-App\\README.md';
+        file_path = Path(self.repo_dir+"\README.md");
         for (i, chunk_text) in enumerate(read_in_chunks(file_path, 200), 1) { 
             print("Getting summary...");
             response = send_to_gemini(chunk_text, here.summary);
@@ -18,7 +18,7 @@ impl main.get_summ{
 impl get_folder_structure.access{
     top_layer: dict ={};
     print("Accessing folder structure...");
-    repo_path = Path('E:\GitHub_Repo\Codebase-Genius\AirVix-App');
+    repo_path = Path(self.repo_dir);
     # top_layer = filter_toplayer_files_folders(repo_path,here.summary);
     # print(top_layer);
     here.folder_structure = get_filtered_folder_structure(repo_path,here.summary);
@@ -92,7 +92,13 @@ impl DocGenerator.ordering {
         print("Generating drafted chapters...");
         here.drafted_chapters= chapter_drafting(ordered_abstractions, code.code_base);
 
-        #visit[-->];
+        visit[-->];
+}
+
+impl TutorialGenerator.generate {
+    print("Generating tutorial...");
+    here.chapters = generate_tutorial(doc.drafted_chapters);
+    print("Tutorial generated successfully!");
 }
 
 impl read_files_from_list(file_paths: list[ str ]) -> dict {
