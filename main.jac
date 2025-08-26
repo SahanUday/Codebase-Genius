@@ -40,15 +40,15 @@ node documentation {
 }
 
 obj Cformat {
-    has heading: str="";
-    has transition_section_from_previous: str="";
-    has highlevel_explanation_section: str="";
-    has key_concepts_section: str="";
-    has usecases_section: str="";
-    has example_code_snippets: str="";
-    has mermaid_diagram_section: str="";
-    has ending_section: str="";
-    has transition_section_to_next_chapter: str="";
+    has heading: str;
+    #has transition_section_from_previous: str;
+    has highlevel_explanation_section: str;
+    has key_concepts_section: str;
+    #has usecases_section: str;
+    has example_code_snippets: str;
+    has mermaid_diagram_section: str;
+    #has ending_section: str;
+    #has transition_section_to_next_chapter: str;
 }
 
 def read_in_chunks(file_path: any, chunk_size: any = 150);
@@ -105,17 +105,18 @@ def chapter_ordering(summary: str, all_abstractions: list, all_relationships: li
 #     return all_code_snippets;
 # }
 
-# sem Cformat = "Cformat is a structured format for drafted chapters.";
-# sem Cformat.heading = "Clear heading of the chapter for providing concept name";
+sem Cformat = "Cformat is a structured format for drafted chapters.";
+sem Cformat.heading = "Clear heading of the chapter for providing chapter name";
 # sem Cformat.transition_section_from_previous = "If this is not the first chapter, begin with a brief transition from the previous chapter about under 50 words. If this is Chapter 1, provide an introduction about under 75 words.";
-# sem Cformat.highlevel_explanation_section = "Begin with a high-level motivation explaining what problem this abstraction solves and why it is important, about under 150 words.";
-# sem Cformat.key_concepts_section = "break down into key concepts. Explain each concept one-by-one in a very beginner-friendly way about under 100 words for each.";
+sem Cformat.highlevel_explanation_section = "Begin with a high-level motivation explaining what problem this abstraction solves and why it is important, about under 300 words.";
+sem Cformat.key_concepts_section = "break down into key concepts. Explain each concept one-by-one in a very beginner-friendly way about under 500 words for each.";
 # #sem Cformat.usecases_section = "Explain how to use this abstraction to solve the use case about under 200 words. Also give example inputs and outputs.";
-# sem Cformat.mermaid_diagram_section = "Use mermaid diagrams to illustrate complex concepts (```mermaid``` format).";
+sem Cformat.mermaid_diagram_section = "Use mermaid diagrams to illustrate complex concepts (```mermaid``` format).";
+sem Cformat.example_code_snippets = "Provide relevant example code snippets, not exact codes just sample codes.";
 # sem Cformat.ending_section = "brief conclusion that summarizes what was learned about under 100 words.";
 # sem Cformat.transition_section_to_next_chapter = "If this is not the last chapter, end with a brief transition to the next chapter about under 50 words. If this is the last chapter, provide a conclusion about under 100 words.";
 
-"""Obtain the abstractions_list and all_code_snippets, and using then generate drafted chapters as Cformat objects for each abstractions in the abstractions_list. 
+"""Obtain the abstractions_list and all_code_snippets, and using them generate drafted chapters as Cformat objects for each abstractions in the abstractions_list. 
 Output the list of Cformat objects."""
 def chapter_drafting(abstractions_list: list, all_code_snippets: dict) -> list[Cformat] by llm();
 

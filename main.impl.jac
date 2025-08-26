@@ -43,7 +43,7 @@ impl IdentifyAbstractions.identify {
         print("Identifying abstractions...");
         updated_abstractions = extract_abstractions(code.code_base);
         here.abstractions = updated_abstractions;
-        #print(here.abstractions);
+        print(here.abstractions);
         # print("Abstractions identified successfully!");
         # print("Abstractions:", here.abstractions);
         visit[-->];
@@ -61,7 +61,11 @@ impl DocGenerator.ordering {
         here.chapter_order = chapter_ordering(repo.summary, abst.abstractions, rel.relationships);
         print("Chapter order obtained successfully!");
 
-        ordered_abstractions = [abst.abstractions[i] for i in here.chapter_order];
+        #ordered_abstractions = [abst.abstractions[i] for i in here.chapter_order];
+        ordered_abstractions = [];
+        for i in here.chapter_order {
+            ordered_abstractions.append(abst.abstractions[i]);
+        }
         # print(ordered_abstractions);
 
         # for abs in ordered_abstractions {
