@@ -39,26 +39,26 @@ node documentation {
     has drafted_chapters: list = [];
 }
 
-obj Cformat {
-    has heading: str;
-    #has transition_section_from_previous: str;
-    has highlevel_explanation_section: str;
-    #has key_concepts_section: str;
-    #has usecases_section: str;
-    #has example_code_snippets: str;
-    has mermaid_diagram_section: str;
-    #has ending_section: str;
-    #has transition_section_to_next_chapter: str;
-}
+# obj Cformat {
+#     has heading: str;
+#     #has transition_section_from_previous: str;
+#     has highlevel_explanation_section: str;
+#     #has key_concepts_section: str;
+#     #has usecases_section: str;
+#     #has example_code_snippets: str;
+#     has mermaid_diagram_section: str;
+#     #has ending_section: str;
+#     #has transition_section_to_next_chapter: str;
+# }
 
 node tutorial {
     has chapters: list = [];
 }
 
-obj Chapter {
-    has title: str;
-    has content: str;
-}
+# obj Chapter {
+#     has title: str;
+#     has content: str;
+# }
 
 def read_in_chunks(file_path: any, chunk_size: any = 150);
 
@@ -114,26 +114,42 @@ def chapter_ordering(summary: str, all_abstractions: list, all_relationships: li
 #     return all_code_snippets;
 # }
 
+# sem Cformat = "Cformat is a structured format for drafted chapters.";
+# sem Cformat.heading = "Clear heading of the chapter for providing chapter name";
+# #sem Cformat.transition_section_from_previous = "If this is not the first chapter, Brief transition from the previous chapter. If this is Chapter 1, Introduction.";
+# sem Cformat.highlevel_explanation_section = "High-level motivation explaining about the chapter content";
+# #sem Cformat.key_concepts_section = "break down into key concepts. Explain each concept one-by-one in a very beginner-friendly way.";
+# #sem Cformat.usecases_section = "Explain how to use this chapter to solve the use case.";
+# sem Cformat.mermaid_diagram_section = "Mermaid diagrams to illustrate complex concepts.";
+# #sem Cformat.example_code_snippets = "Example code snippets, not exact codes just sample codes.";
+# #sem Cformat.ending_section = "brief conclusion that summarizes what was learned.";
+# #sem Cformat.transition_section_to_next_chapter = "If this is not the last chapter, end with a brief transition to the next chapter. If this is the last chapter, provide a conclusion about what was learned.";
+
+obj Cformat {
+    has heading: str;
+    has highlevel_explanation_section: str;
+    #has mermaid_diagram_section: str;
+}
+
 sem Cformat = "Cformat is a structured format for drafted chapters.";
 sem Cformat.heading = "Clear heading of the chapter for providing chapter name";
-#sem Cformat.transition_section_from_previous = "If this is not the first chapter, Brief transition from the previous chapter. If this is Chapter 1, Introduction.";
 sem Cformat.highlevel_explanation_section = "High-level motivation explaining about the chapter content";
-#sem Cformat.key_concepts_section = "break down into key concepts. Explain each concept one-by-one in a very beginner-friendly way.";
-#sem Cformat.usecases_section = "Explain how to use this chapter to solve the use case.";
-sem Cformat.mermaid_diagram_section = "Mermaid diagrams to illustrate complex concepts.";
-#sem Cformat.example_code_snippets = "Example code snippets, not exact codes just sample codes.";
-#sem Cformat.ending_section = "brief conclusion that summarizes what was learned.";
-#sem Cformat.transition_section_to_next_chapter = "If this is not the last chapter, end with a brief transition to the next chapter. If this is the last chapter, provide a conclusion about what was learned.";
+#sem Cformat.mermaid_diagram_section = "Mermaid diagrams to illustrate complex concepts.";
 
 """Obtain the abstractions_list and all_code_snippets, generate drafted chapters for each elements in the abstractions_list. """
 def chapter_drafting(abstractions_list: list, all_code_snippets: dict) -> list[Cformat] by llm(method='Reason');
+
+obj Chapter {
+    has title: str;
+    has content: str;
+}
 
 sem Chapter = "complete Chapter for the tutorial in markdown format.";
 sem Chapter.title = "Clear and concise title of the chapter.";
 sem Chapter.content = "Comprehensive content of the chapter in a cohesive manner including smooth transitions between chapters.";
 
 """Obtain all_drafted_chapters and generate a beginner friendly complete chapters including smooth transitions and consistent tone."""
-def generate_tutorial(all_drafted_chapters: list) -> list[Chapter] by llm(method='Reason');
+def generate_tutorial(all_drafted_chapters: list) -> list[Chapter] by llm();
 
 walker main {
     has repo_url: str;
