@@ -144,12 +144,12 @@ obj Chapter {
     has content: str;
 }
 
-sem Chapter = "complete Chapter for the tutorial in markdown format.";
+sem Chapter = "complete Chapter for the tutorial.";
 sem Chapter.title = "Clear and concise title of the chapter.";
 sem Chapter.content = "Comprehensive content of the chapter in a cohesive manner including smooth transitions between chapters.";
 
-"""Obtain all_drafted_chapters and generate a beginner friendly complete chapters including smooth transitions and consistent tone."""
-def generate_tutorial(all_drafted_chapters: list) -> list[Chapter] by llm();
+"""Obtain all_drafted_chapters and generate a beginner friendly complete chapters in markdown format, including smooth transitions and consistent tone."""
+def generate_tutorial(all_drafted_chapters: list) -> list[Chapter] by llm(method='Reason');
 
 walker main {
     has repo_url: str;
