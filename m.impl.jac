@@ -101,28 +101,28 @@ impl TutorialGenerator.generate {
     print("Tutorial generated successfully!");
 }
 
-# impl read_files_from_list(file_paths: list[ str ]) -> dict {
-#     files_dict = {};
-#     total_files = len(file_paths);
-#     processed_files = 0;
-#     for filepath in file_paths {
-#         relpath = os.path.basename(filepath);
-#         status ='processed';
-#         with open(filepath, 'r', encoding='utf-8-sig') as f {
-#             content = f.read();
-#         }
-#         files_dict[ relpath ] = [content];
-#         processed_files += 1;
-#         if (total_files > 0) {
-#             percentage = ((processed_files / total_files) * 100);
-#             rounded_percentage = int(percentage);
-#             print(f"Progress: {processed_files}/{total_files} ({rounded_percentage}%) {relpath} [{status}]");
-#         }
-#     }
+impl CodeAnalyzer.read_files_from_list(file_paths: list[ str ]) -> dict {
+    files_dict = {};
+    total_files = len(file_paths);
+    processed_files = 0;
+    for filepath in file_paths {
+        relpath = os.path.basename(filepath);
+        status ='processed';
+        with open(filepath, 'r', encoding='utf-8-sig') as f {
+            content = f.read();
+        }
+        files_dict[ relpath ] = [content];
+        processed_files += 1;
+        if (total_files > 0) {
+            percentage = ((processed_files / total_files) * 100);
+            rounded_percentage = int(percentage);
+            print(f"Progress: {processed_files}/{total_files} ({rounded_percentage}%) {relpath} [{status}]");
+        }
+    }
 
-#     print(f"'\nFound '{len(files_dict)}' readable files:'");
-#     for path in files_dict { print(f"'  '{path}"); }
-#     return files_dict;
+    print(f"'\nFound '{len(files_dict)}' readable files:'");
+    for path in files_dict { print(f"'  '{path}"); }
+    return files_dict;
 }
 
 impl get_top_level_structure_dict(repo_path: str) -> dict {
@@ -136,7 +136,7 @@ impl get_top_level_structure_dict(repo_path: str) -> dict {
     return structure;
 }
 
-impl get_all_file_paths(repo_path: str) -> list {
+impl RepoMapper.get_all_file_paths(repo_path: str) -> list {
     repo_path = Path(repo_path);
     all_files = [];
     if (repo_path.exists() and repo_path.is_dir() ) {
@@ -149,11 +149,11 @@ impl get_all_file_paths(repo_path: str) -> list {
     return all_files;
 }
 
-# impl read_in_chunks(file_path: any, chunk_size: any = 150) {
-#     with open(file_path, 'r', encoding='utf-8') as f  { chunk = []; for (line_num, line) in enumerate(f, 1) { chunk.append(line); if ((line_num % chunk_size) == 0) {
-#         yield ''.join(chunk) ;;
-#         chunk = [];
-#     } }  if chunk {
-#         yield ''.join(chunk) ;;
-#     } }
-# }
+impl RepoMapper.read_in_chunks(file_path: any, chunk_size: any = 150) {
+    with open(file_path, 'r', encoding='utf-8') as f  { chunk = []; for (line_num, line) in enumerate(f, 1) { chunk.append(line); if ((line_num % chunk_size) == 0) {
+        yield ''.join(chunk) ;;
+        chunk = [];
+    } }  if chunk {
+        yield ''.join(chunk) ;;
+    } }
+}
