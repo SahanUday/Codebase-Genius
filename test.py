@@ -1,2 +1,8 @@
-s1 ="E:\\GitHub_Repo\\Codebase-Genius\\AirVix-App"
-print(s1+"\\file.txt")
+l =[]
+n=1
+
+for i in l:
+    print(n)
+    n+=1
+
+print("Done")
