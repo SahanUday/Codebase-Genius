@@ -1,6 +1,6 @@
 impl RepoMapper.repo_clone(repo_url: str, repo_dir: str) {
     report{"response1":"Cloning repository..."};
-    #Repo.clone_from(repo_url, Path(repo_dir));
+    Repo.clone_from(repo_url, repo_dir);
     report{"response2":"Repository cloned successfully!"};
 }
 
@@ -44,35 +44,3 @@ impl CodeAnalyzer.read_files_from_list(file_paths: list[ str ]) -> dict {
     return files_dict;
 }
 
-# Walkers
-
-# impl Supervisor.repo_clone{
-#     DocGenie_nodes = [root -->DocGenie];
-
-#     for Doc in DocGenie_nodes {
-#         if Doc.repo_url == self.repo_url {
-#             #report{Doc.chapters};
-#             report{"response1":"Give existing Tutorial!"};
-#             disengage;
-
-#         } 
-#     } else {
-
-#         here ++> RepoMapper(repo_url=self.repo_url);
-#         RepoMapper_nodes = [root --> RepoMapper];
-#         Repo = RepoMapper_nodes[-1];
-
-#         file_directory = Path(self.repo_path+"\README.md");
-#         for (i, chunk_text) in enumerate(Repo.read_in_chunks(file_directory, 200), 1) { 
-#             report{"response7":"Getting summary..."};
-#             response = get_summary(chunk_text, Repo.summary);
-#             Repo.summary = response;
-#         }
-
-#         Repo.folder_structure = get_filtered_folder_structure(Path(self.repo_path), Repo.summary);
-
-#         report{"response5":Repo.folder_structure};
-#         report{"response6":Repo.summary};
-
-#     }
-# }

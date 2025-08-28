@@ -1,4 +1,4 @@
-#import from git { Repo }
+import from git { Repo }
 import from pathlib { Path }
 import from mtllm.llms { Gemini }
 import os;
@@ -6,14 +6,11 @@ import from utils { get_summary,get_filtered_folder_structure,extract_abstractio
 
 
 node RepoMapper {
-    has repo_url: str= "";
     has folder_structure: list[str]=[];
     has summary: str= "";
 
-    # def repo_clone(repo_url: str, repo_dir: str);
-
     def read_in_chunks(file_path: any, chunk_size: any = 150);
-
+    def repo_clone(repo_url: str, repo_dir: str);
 }
 
 node CodeAnalyzer {
@@ -23,11 +20,10 @@ node CodeAnalyzer {
     has chapter_order: list = [];
 
     def read_files_from_list(file_paths: list[ str ]) -> dict();
-
 }
 
 node DocGenie {
-    has repo_url: str= "";
+    has saved_repo_url: str= "";
     has drafted_chapters: list = [];
     has chapters: list = [];
 }
@@ -40,24 +36,22 @@ walker Supervisor {
         static has auth: bool = False;
     }
 
-    #can repo_clone with `root entry;
 
+    can start with `root entry{
 
-    can repo_clone with `root entry{
-        DocGenie_nodes = [root -->DocGenie];
-
-        for Doc in DocGenie_nodes {
-            if Doc.repo_url == self.repo_url {
-                #report{Doc.chapters};
-                report{"response1":"Give existing Tutorial!"};
-                disengage;
-
-            } 
+        ExDocGenie_nodes = [root --> (`?DocGenie: saved_repo_url==self.repo_url)];
+        if ExDocGenie_nodes {
+            report{"res":"Hii"};
+            report{"response1":ExDocGenie_nodes[0].chapters};
+            disengage;
         } else {
-
-            here ++> RepoMapper(repo_url=self.repo_url);
+            here ++> RepoMapper();
             RepoMapper_nodes = [root --> RepoMapper];
             Repo = RepoMapper_nodes[-1];
+
+            report{"response37":"Cloning repository..."};
+            Repo.repo_clone(self.repo_url, self.repo_path);
+            report{"response49":"Repository cloned successfully!"};
 
             file_directory = Path(self.repo_path+"\README.md");
             for (i, chunk_text) in enumerate(Repo.read_in_chunks(file_directory, 200), 1) { 
@@ -91,7 +85,7 @@ walker Supervisor {
             DocGenie_nodes = [root --> DocGenie];
             Doc = DocGenie_nodes[-1];
 
-            Doc.repo_url = self.repo_url;
+            Doc.saved_repo_url = self.repo_url;
             
             print("Chapters drafting...");
             Doc.drafted_chapters = chapter_drafting(Code.abstractions, Code.code_base);
@@ -104,27 +98,6 @@ walker Supervisor {
     }
 }
 
-walker Analyzer(Supervisor) {
-
-    can analyze_code with `root entry{
-        #report{"response3":"Analyzing code..."};
-
-        # here ++> CodeAnalyzer();
-        # CodeAnalyzer_nodes = [root --> CodeAnalyzer];
-        # Code = CodeAnalyzer_nodes[-1];
-
-        # Code.code_base = Code.read_files_from_list(Repo.folder_structure);
-        # report{"response2":Code.code_base};
-
-    }
-}
-
-walker Documenter(Analyzer) {
-
-    can generate_docs with `root entry{
-        report{"response15":"Generating documentation..."};
-    }
-}
 
 
 # with entry {

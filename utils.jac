@@ -5,6 +5,7 @@ glob llm = Gemini(model_name="gemini-2.5-flash");
 """obtain this chunk of text and summary of get so far and give the response as the new summary of the chunk of text combined with the given summary so far, maximum 150 lines."""
 def get_summary(text_chunk: str, summary: str) -> str by llm();
 
+
 def get_all_file_paths(repo_path: str) -> list {
     all_files = [];
     if (repo_path.exists() and repo_path.is_dir() ) {
@@ -16,11 +17,11 @@ def get_all_file_paths(repo_path: str) -> list {
     }
     return all_files;
 }
-
 """Given a cloned GitHub repository path and a project summary, 
 identify and filter out non-essential files. You can use get_all_file_paths function as a tool for getting all file paths as list from given repo_path. Also use summary for understanding the project context.
 Return a list of only the meaningful source code files that are crucial for understanding the project's logic and abstractions. Exclude documentationumentation, configuration, test, and dependency files.""" 
 def get_filtered_folder_structure(repo_path: str , summary: str ) -> list by llm(method="ReAct", tools=[get_all_file_paths]);
+
 
 obj Absts {
     has name: str;
@@ -31,6 +32,7 @@ obj Absts {
     All the Absts objects values output as a String."""
 def extract_abstractions(all_codes: dict) -> list[Absts] by llm(method='Reason');
 
+
 obj Rels {
     has from_abstraction: str;
     has to_abstraction: str;
@@ -40,36 +42,34 @@ obj Rels {
     Each relationship should show a from_abstraction, to_abstraction, and a brief label(A brief (a few words) description of the interaction)."""
 def get_relationships(abstractions: list) -> list[Rels] by llm(method='Reason');
 
+
 """Obtain given the project summary, all abstractions, and their all relationships,
     Determine best order to explain this project in a tutorial.
     Output the ordered list of abstraction indices"""
 def chapter_ordering(summary: str, all_abstractions: list, all_relationships: list) -> list[int] by llm(method="Reason");
+
 
 obj Cformat {
     has heading: str;
     has highlevel_explanation_section: str;
     #has mermaid_diagram_section: str;
 }
-
 sem Cformat = "Cformat is a structured format for drafted chapters.";
 sem Cformat.heading = "Clear heading of the chapter";
 sem Cformat.highlevel_explanation_section = "High-level motivation explaining about the chapter content";
 #sem Cformat.mermaid_diagram_section = "Mermaid diagrams to illustrate complex concepts' high-level architecture.";
-
 """Generate drafted chapters for each abstraction in the abstractions_list."""
 def chapter_drafting(abstractions_list: list, all_code_snippets: dict) -> list[Cformat] by llm();
+
 
 obj Chapter {
     has title: str;
     has content: str;
 }
-
 sem Chapter = "complete Chapter for the tutorial.";
 sem Chapter.title = "Clear and concise title of the chapter.";
 sem Chapter.content = "Comprehensive content of the chapter in a cohesive manner including smooth transitions between chapters.";
-
-"""Obtain all_drafted_chapters and generate a beginner friendly complete chapters in Markdown format, including smooth transitions and consistent tone.
-"""
-def generate_tutorial(all_drafted_chapters: list) -> list[Chapter] by llm(method='Reason');
+"""Obtain all_drafted_chapters and generate a beginner friendly complete chapters in Markdown format, including smooth transitions and consistent tone."""
+def generate_tutorial(all_drafted_chapters: list) -> list[Chapter] by llm();
 
 
