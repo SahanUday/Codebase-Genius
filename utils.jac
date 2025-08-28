@@ -48,13 +48,13 @@ def chapter_ordering(summary: str, all_abstractions: list, all_relationships: li
 obj Cformat {
     has heading: str;
     has highlevel_explanation_section: str;
-    has mermaid_diagram_section: str;
+    #has mermaid_diagram_section: str;
 }
 
 sem Cformat = "Cformat is a structured format for drafted chapters.";
 sem Cformat.heading = "Clear heading of the chapter";
 sem Cformat.highlevel_explanation_section = "High-level motivation explaining about the chapter content";
-sem Cformat.mermaid_diagram_section = "Mermaid diagrams to illustrate complex concepts' high-level architecture.";
+#sem Cformat.mermaid_diagram_section = "Mermaid diagrams to illustrate complex concepts' high-level architecture.";
 
 """Generate drafted chapters for each abstraction in the abstractions_list."""
 def chapter_drafting(abstractions_list: list, all_code_snippets: dict) -> list[Cformat] by llm();

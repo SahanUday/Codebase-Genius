@@ -93,9 +93,11 @@ walker Supervisor {
 
             Doc.repo_url = self.repo_url;
             
+            print("Chapters drafting...");
             Doc.drafted_chapters = chapter_drafting(Code.abstractions, Code.code_base);
             report{"response4":Doc.drafted_chapters};
 
+            print("Tutorial generating...");
             Doc.chapters = generate_tutorial(Doc.drafted_chapters);
             report{"response16":Doc.chapters};
         }
