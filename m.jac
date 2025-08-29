@@ -2,7 +2,7 @@ import from git { Repo }
 import from pathlib { Path }
 import from mtllm.llms { Gemini }
 import os;
-import from utils { get_summary,get_filtered_folder_structure,extract_abstractions,get_relationships,chapter_ordering,chapter_drafting,generate_tutorial }
+import from utils { get_summary,get_filtered_folder_structure,extract_abstractions,get_relationships,chapter_ordering,chapter_drafting,generate_tutorial, generate_overview }
 
 
 node RepoMapper {
@@ -25,6 +25,7 @@ node CodeAnalyzer {
 node DocGenie {
     has saved_repo_url: str= "";
     has drafted_chapters: list = [];
+    has overview: str = "";
     has chapters: list = [];
 }
 
@@ -36,71 +37,6 @@ walker Supervisor {
         static has auth: bool = False;
     }
 
+    can start with `root entry;
 
-    can start with `root entry{
-
-        ExDocGenie_nodes = [root --> (`?DocGenie: saved_repo_url==self.repo_url)];
-        if ExDocGenie_nodes {
-            report{"res":"Hii"};
-            report{"response1":ExDocGenie_nodes[0].chapters};
-            disengage;
-        } else {
-            here ++> RepoMapper();
-            RepoMapper_nodes = [root --> RepoMapper];
-            Repo = RepoMapper_nodes[-1];
-
-            report{"response37":"Cloning repository..."};
-            Repo.repo_clone(self.repo_url, self.repo_path);
-            report{"response49":"Repository cloned successfully!"};
-
-            file_directory = Path(self.repo_path+"\README.md");
-            for (i, chunk_text) in enumerate(Repo.read_in_chunks(file_directory, 200), 1) { 
-                report{"response7":"Getting summary..."};
-                response = get_summary(chunk_text, Repo.summary);
-                Repo.summary = response;
-            }
-
-            Repo.folder_structure = get_filtered_folder_structure(Path(self.repo_path), Repo.summary);
-
-            report{"response5":Repo.folder_structure};
-            report{"response6":Repo.summary};
-
-            here ++> CodeAnalyzer();
-            CodeAnalyzer_nodes = [root --> CodeAnalyzer];
-            Code = CodeAnalyzer_nodes[-1];
-
-            Code.code_base = Code.read_files_from_list(Repo.folder_structure);
-            report{"response2":Code.code_base};
-
-            Code.abstractions = extract_abstractions(Code.code_base);
-            report{"response8":Code.abstractions};
-
-            Code.relationships = get_relationships(Code.abstractions);
-            report{"response9":Code.relationships};
-
-            Code.chapter_order = chapter_ordering(Repo.summary, Code.abstractions, Code.relationships);
-            report{"response10":Code.chapter_order};
-
-            here ++> DocGenie();
-            DocGenie_nodes = [root --> DocGenie];
-            Doc = DocGenie_nodes[-1];
-
-            Doc.saved_repo_url = self.repo_url;
-            
-            print("Chapters drafting...");
-            Doc.drafted_chapters = chapter_drafting(Code.abstractions, Code.code_base);
-            report{"response4":Doc.drafted_chapters};
-
-            print("Tutorial generating...");
-            Doc.chapters = generate_tutorial(Doc.drafted_chapters);
-            report{"response16":Doc.chapters};
-        }
-    }
 }
-
-
-
-# with entry {
-#     Documenter(repo_path="E:\\GitHub_Repo\\Codebase-Genius\\AirVix-App") spawn root;
-
-# }

@@ -61,6 +61,8 @@ sem Cformat.highlevel_explanation_section = "High-level motivation explaining ab
 """Generate drafted chapters for each abstraction in the abstractions_list."""
 def chapter_drafting(abstractions_list: list, all_code_snippets: dict) -> list[Cformat] by llm();
 
+"""Obtain all_abstractions and all_relationships and generate a beginner friendly comprehensive project overview in Markdown format, including smooth transitions and consistent tone."""
+def generate_overview(all_abstractions: list, all_relationships: list) -> str by llm();
 
 obj Chapter {
     has title: str;
