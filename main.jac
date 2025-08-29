@@ -4,7 +4,6 @@ import from mtllm.llms { Gemini }
 import os;
 import from utils { get_summary,get_filtered_folder_structure,extract_abstractions,get_relationships,chapter_ordering,chapter_drafting,generate_tutorial, generate_overview }
 
-
 node RepoMapper {
     has folder_structure: list[str]=[];
     has summary: str= "";
@@ -36,7 +35,5 @@ walker Supervisor {
     obj __specs__{
         static has auth: bool = False;
     }
-
     can start with `root entry;
-
 }
