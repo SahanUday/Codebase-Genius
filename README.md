@@ -242,7 +242,3 @@ Codebase-Genius/
 
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
-<div align="center">
-  <h3>🌟 If you find Codebase Genius helpful, please give it a star! ⭐</h3>
-  <p>Made with ❤️ by developers, for developers</p>
-</div>
