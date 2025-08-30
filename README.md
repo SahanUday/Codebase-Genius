@@ -134,26 +134,11 @@ graph TB
 ## 📖 Generated Tutorials Showcase
 **All these tutorials are generated entirely by using Codebase Genius!**
 
-### [AirvixApp Tutorial](./AirvixApp_tutorial.md)
-**Original Repository:** https://github.com/SahanUday/Airvix-App.git  
-**Technologies:** `Dart` + `Flutter` + `Firebase` + `IoT`  
-**Description:** Smart AC control application with real-time sensor data, geofencing, and automated climate control. Features Firebase integration, location services, and intelligent scheduling.
-
-### [Intelligent Command Control System Tutorial](./IntelligentCommandControlSystem_tutorial.md)
-**Original Repository:** https://github.com/SahanUday/Intelligent-Command-Control-System.git  
-**Technologies:** `Jac` + `Python` + `ESP32/C++` + `LLM`  
-**Description:** Voice-controlled IoT device system that understands natural language commands and controls physical hardware through ESP32 microcontrollers. Bridges human language with smart device automation.
-
-### [Feedback Agent Tutorial](./FeedbackAgent_tutorial.md)
-**Original Repository:** https://github.com/SahanUday/steamnoodles-feedback-agent-Sahan_Udayanga.git  
-**Technologies:** `Python` + `Streamlit` + `AI/LLM`  
-**Description:** Customer sentiment analysis system powered by AI. Automatically analyzes feedback, generates responses, and provides comprehensive sentiment dashboards with trend visualization.
-
-### [Vocabulary Trainer Tutorial](./VocabularyTrainer_tutorial.md)
-**Original Repository:** https://github.com/SahanUday/Vocabulary-Trainer.git  
-**Technologies:** `Jac` + `Python` + `LLM`  
-**Description:** AI-powered vocabulary learning game that generates words, validates answers semantically, and provides intelligent hints. Demonstrates advanced LLM integration for educational applications.
-
+- **[Airvix-App](./generated%20tutorials/AirvixApp_tutorial.md)** - Smart AC Control with Firebase & Flutter (`Dart + Firebase + IoT`)
+- **[Intelligent-Command-ControlSystem](./generated%20tutorials/IntelligentCommandControlSystem_tutorial.md)** - Voice-controlled IoT devices with ESP32 (`Jac + Python + ESP32/C++`)
+- **[Feedback-Agent](./generated%20tutorials/FeedbackAgent_tutorial.md)** - Customer sentiment analysis with AI (`Python + Streamlit + AI`)
+- **[Vocabulary-Trainer](./generated%20tutorials/VocabularyTrainer_tutorial.md)** - AI-powered vocabulary learning game (`Jac + Python + LLM`)
+  
 For furthur details, [click here](./generated%20tutorials).
 
 > 💡 Each tutorial includes beginner-friendly explanations, architectural diagrams, and step-by-step code walkthroughs - all generated automatically by understanding the repository structure and code patterns!
