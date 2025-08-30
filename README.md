@@ -122,6 +122,49 @@ Codebase Genius uses:
 - **Interactive Visualization**: Enable interactive exploration of code structure and relationships.
 - **Web-Based Execution**: Offer a web interface for running analyses and viewing results.
 
+---
+``` mermaid
+graph TD
+    subgraph Supervisor
+        A[input repo-url & repo-path]
+        A --> B[check whether exist generated tutorial]
+    end
+    subgraph RepoMapper
+        B -->|if not| D[get summary from README.md file - only if exist]
+        D --> E[get filtered file/folder structure]
+
+    end
+    subgraph CodeAnalyzer
+        E --> F[get codebase from filtered files]
+        F --> G[identify abstractions from codebase]
+        G --> H[identify relationships from abstraction]
+        H --> I[get chapters order]
+
+    end
+    subgraph DocGenie
+        I --> J[generate drafted chapters]
+        J --> K[generate overview of tutorial]
+        K --> L[generate tutorial in markdown format]
+
+    end
+    B -->|if exist| M[display existing tutorial]
+    L --> M
+
+    style A fill:#E3F2FD,stroke:#90CAF9,stroke-width:3px,color:#1565C0        %% Input - Light Blue
+    style B fill:#E8F5E8,stroke:#A5D6A7,stroke-width:3px,color:#2E7D32        %% Check - Light Green
+    style D fill:#FFF3E0,stroke:#FFCC80,stroke-width:2px,color:#F57C00        %% Analysis - Light Orange
+    style E fill:#FFF3E0,stroke:#FFCC80,stroke-width:2px,color:#F57C00        %% Analysis - Light Orange
+    style F fill:#F3E5F5,stroke:#CE93D8,stroke-width:2px,color:#7B1FA2        %% Analysis - Light Purple
+    style G fill:#F3E5F5,stroke:#CE93D8,stroke-width:2px,color:#7B1FA2        %% Analysis - Light Purple
+    style H fill:#F3E5F5,stroke:#CE93D8,stroke-width:2px,color:#7B1FA2        %% Analysis - Light Purple
+    style I fill:#F3E5F5,stroke:#CE93D8,stroke-width:2px,color:#7B1FA2        %% Analysis - Light Purple
+    style J fill:#FFEBEE,stroke:#FFAB91,stroke-width:2px,color:#D32F2F        %% Generation - Light Red
+    style K fill:#FFEBEE,stroke:#FFAB91,stroke-width:2px,color:#D32F2F        %% Generation - Light Red
+    style L fill:#FFEBEE,stroke:#FFAB91,stroke-width:2px,color:#D32F2F        %% Generation - Light Red
+    style M fill:#FFFDE7,stroke:#FFF176,stroke-width:4px,color:#F57F17 
+```
+---
+
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
