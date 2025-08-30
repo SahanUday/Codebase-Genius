@@ -26,6 +26,7 @@ node DocGenie {
     has drafted_chapters: list = [];
     has overview: str = "";
     has chapters: list = [];
+    has diagrams: list = [];
 }
 
 walker Supervisor {

@@ -51,6 +51,18 @@ def set_query_chapter(slug: str | None):
         st.query_params.clear()
         st.query_params["chapter"] = slug
 
+def generate_tutorial_md(summary: str | None, chapters: List[Dict[str, str]]) -> str:
+    md = "# Overview\n\n"
+    if summary:
+        md += summary + "\n\n"
+    else:
+        md += "No overview summary available.\n\n"
+    md += "## Chapters\n\n"
+    for i, c in enumerate(chapters, start=1):
+        md += f"### Chapter {i}: {c['title']}\n\n"
+        md += c['content'] + "\n\n"
+    return md
+
 # ---------- Session State ----------
 if "current_page" not in st.session_state:
     st.session_state.current_page = "input_page"
@@ -126,6 +138,9 @@ elif st.session_state.current_page == "tutorial_page":
             st.session_state.current_page = "input_page"
             st.session_state.sidebar_page = "Input Page"
     else:
+        # Generate the full tutorial Markdown
+        tutorial_md = generate_tutorial_md(summary, chapters)
+
         # Sidebar chapter navigation
         with st.sidebar:
             st.header("📑 Chapters")
@@ -144,6 +159,14 @@ elif st.session_state.current_page == "tutorial_page":
             selected = options[options_names.index(selected_name)] if selected_name in options_names else "Overview"
             if slugify(selected) != get_query_chapter():
                 set_query_chapter(slugify(selected))
+
+            # Download button for the tutorial MD file
+            st.download_button(
+                label="Download Tutorial",
+                data=tutorial_md,
+                file_name="tutorial.md",
+                mime="text/markdown"
+            )
 
         # Main panel
         q = get_query_chapter()

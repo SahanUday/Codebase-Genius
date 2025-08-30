@@ -52,16 +52,20 @@ def chapter_ordering(summary: str, all_abstractions: list, all_relationships: li
 obj Cformat {
     has heading: str;
     has highlevel_explanation_section: str;
-    #has mermaid_diagram_section: str;
+    has key_concepts: str;
+    has mermaid_diagram_section: str;
+    has conclusion: str;
 }
 sem Cformat = "Cformat is a structured format for drafted chapters.";
 sem Cformat.heading = "Clear heading of the chapter";
 sem Cformat.highlevel_explanation_section = "High-level motivation explaining about the chapter content";
-#sem Cformat.mermaid_diagram_section = "Mermaid diagrams to illustrate complex concepts' high-level architecture.";
-"""Generate drafted chapters for each abstraction in the abstractions_list."""
+sem Cformat.key_concepts = "Key concepts covered in this chapter";
+sem Cformat.mermaid_diagram_section = "Mermaid diagrams to illustrate high-level architecture as a String.";
+sem Cformat.conclusion = "A concise conclusion summarizing the chapter content.";
+"""Generate drafted chapters as a list of Cformat objects, for "String" types always use double quotes("..")"""
 def chapter_drafting(abstractions_list: list, all_code_snippets: dict) -> list[Cformat] by llm();
 
-"""Obtain all_abstractions and all_relationships and generate a beginner friendly comprehensive project overview in Markdown format, including smooth transitions and consistent tone."""
+"""Generate a beginner friendly comprehensive project overview in proper markdown format for proper rendering, including smooth transitions and consistent tone."""
 def generate_overview(all_abstractions: list, all_relationships: list) -> str by llm();
 
 obj Chapter {
@@ -70,8 +74,8 @@ obj Chapter {
 }
 sem Chapter = "complete Chapter for the tutorial.";
 sem Chapter.title = "Clear and concise title of the chapter.";
-sem Chapter.content = "Comprehensive content of the chapter in a cohesive manner including smooth transitions between chapters.";
-"""Obtain all_drafted_chapters and generate a beginner friendly complete chapters in Markdown format, including smooth transitions and consistent tone."""
+sem Chapter.content = "Comprehensive content of the chapter.";
+"""Generate a beginner friendly,readable, logically structured, and including mermaid diagrams visually aided complete chapters, including smooth transitions and consistent tone. Output *only* the Markdown content for this chapter, for "String" types always use double quotes("..").
+Directly provide a super beginner-friendly Markdown output (DON'T need ```markdown``` tags). Use  (```mermaid``` format) for mermaid diagrams"""
 def generate_tutorial(all_drafted_chapters: list) -> list[Chapter] by llm();
-
 

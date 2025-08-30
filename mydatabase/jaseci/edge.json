@@ -1,0 +1,5 @@
+[
+{"_id": {"$oid": "68b2f39fabec8b06b95a21be"}, "name": "", "root": {"$oid": "000000000000000000000001"}, "access": {"all": "NO_ACCESS", "roots": {"anchors": {}}}, "archetype": {}, "source": "n::000000000000000000000001", "target": "n:DocGenie:68b2f39fabec8b06b95a21bd", "is_undirected": false},
+{"_id": {"$oid": "68b2f326abec8b06b95a21ba"}, "name": "", "root": {"$oid": "000000000000000000000001"}, "access": {"all": "NO_ACCESS", "roots": {"anchors": {}}}, "archetype": {}, "source": "n::000000000000000000000001", "target": "n:RepoMapper:68b2f326abec8b06b95a21b9", "is_undirected": false},
+{"_id": {"$oid": "68b2f368abec8b06b95a21bc"}, "name": "", "root": {"$oid": "000000000000000000000001"}, "access": {"all": "NO_ACCESS", "roots": {"anchors": {}}}, "archetype": {}, "source": "n::000000000000000000000001", "target": "n:CodeAnalyzer:68b2f368abec8b06b95a21bb", "is_undirected": false}
+]
