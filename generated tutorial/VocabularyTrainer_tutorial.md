@@ -65,14 +65,14 @@ To better understand how these pieces fit together, let's look at a high-level d
 
 ```mermaid
 graph TD
-    A[User Interface (Streamlit)] --> B{VocabularyTrainerGame};
-    B --> C[GameSessionManagement];
-    B --> D[WordGenerationService];
-    B --> E[GuessValidationService];
-    B --> F[HintAndExplanationService];
-    D -- LLM --> G[LLM];
-    E -- LLM --> G;
-    F -- LLM --> G;
+    A[User Interface - Streamlit] --> B{Vocabulary Trainer Game}
+    B --> C[Game Session Management]
+    B --> D[Word Generation Service]
+    B --> E[Guess Validation Service]
+    B --> F[Hint And Explanation Service]
+    D -- LLM --> G[LLM]
+    E -- LLM --> G
+    F -- LLM --> G
 ```
 
 As you can see, the Vocabulary Trainer Game acts as the user-facing facade and the central control unit. It beautifully integrates the user interface (what you see and click) with our powerful AI backend services, creating a dynamic and interactive environment where learning feels natural and fun. This core architecture is what makes our game smart and responsive!
@@ -126,12 +126,12 @@ Here's a look at the flow for generating new words:
 
 ```mermaid
 graph TD
-    A[VocabularyTrainerGame] -- POST /walker/VocabTrainer (op:start_game) --> B[VocabTrainer Walker];
-    B -- Calls --> C[generate_word() function];
-    C -- Prompts --> D[LLM (Gemini)];
-    D -- Returns New Word --> C;
-    C -- Returns New Word --> B;
-    B -- Reports New Word --> A;
+    A[Vocabulary Trainer Game] -- POST /walker/VocabTrainer op:start_game --> B[VocabTrainer Walker]
+    B -- Calls --> C[generate_word function]
+    C -- Prompts --> D[LLM Gemini]
+    D -- Returns New Word --> C
+    C -- Returns New Word --> B
+    B -- Reports New Word --> A
 ```
 
 The Word Generation Service, supercharged by an LLM like Gemini, is fundamental to the game's core loop. It continuously supplies fresh and appropriate vocabulary challenges, making sure your learning journey is always engaging and effective.
@@ -155,14 +155,14 @@ Let's see how your guesses are intelligently validated:
 
 ```mermaid
 graph TD
-    A[VocabularyTrainerGame] -- POST /walker/check_guess (word, guess) --> B[check_guess Walker];
-    B -- Creates --> C[flashcard node];
-    B -- Calls --> D[check_guesses(word, guess) function];
-    D -- Prompts --> E[LLM (Gemini)];
-    E -- Returns Correctness (bool) --> D;
-    D -- Returns Result --> B;
-    B -- Reports Correct/Incorrect --> A;
-    B -- (If Incorrect) --> F[HintAndExplanationService];
+    A[Vocabulary Trainer Game] -- POST /walker/check_guess word and guess --> B[check_guess Walker]
+    B -- Creates --> C[flashcard node]
+    B -- Calls --> D[check_guesses word and guess function]
+    D -- Prompts --> E[LLM Gemini]
+    E -- Returns Correctness bool --> D
+    D -- Returns Result --> B
+    B -- Reports Correct or Incorrect --> A
+    B -- If Incorrect --> F[Hint And Explanation Service]
 ```
 
 The Guess Validation Service, with its LLM-powered semantic comparison, provides a sophisticated and intelligent way to evaluate user input. It moves beyond simple keyword matching to truly understand your intent, making the feedback much more helpful and accurate.
@@ -186,13 +186,13 @@ Here's how the game provides you with helpful insights:
 
 ```mermaid
 graph TD
-    A[GuessValidationService] -- If Guess Incorrect --> B[check_guess Walker];
-    B -- Calls --> C[explain_word(word, user_guess) function];
-    C -- Prompts --> D[LLM (Gemini)];
-    D -- Returns Hint/Explanation --> C;
-    C -- Returns Hint/Explanation --> B;
-    B -- Reports Hint --> E[VocabularyTrainerGame];
-    E -- Displays Hint --> F[User Interface];
+    A[Guess Validation Service] -- If Guess Incorrect --> B[check_guess Walker]
+    B -- Calls --> C[explain_word with word and user_guess function]
+    C -- Prompts --> D[LLM Gemini]
+    D -- Returns Hint or Explanation --> C
+    C -- Returns Hint or Explanation --> B
+    B -- Reports Hint --> E[Vocabulary Trainer Game]
+    E -- Displays Hint --> F[User Interface]
 ```
 
 The Hint and Explanation Service is absolutely vital for the pedagogical aspect of our game. It provides personalized and intelligent feedback that truly guides users towards understanding and mastering new vocabulary, ensuring every interaction is a step forward in your learning journey.
