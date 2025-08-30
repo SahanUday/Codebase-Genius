@@ -147,30 +147,13 @@ For furthur details, [click here](./generated%20tutorials).
 
 ## 🔧 Technologies & Tools Used
 
-### 🧠 **AI & Language Processing**
 * **Jac Language** – Agent-oriented programming with native LLM integration (`jaclang`, `jac-cloud`)
-* **Google Gemini 2.5 Flash** – Advanced AI for code understanding and generation (`google-generativeai`)
 * **mtllm** – Multi-tool LLM framework for reasoning and function calling with ReAct methodology
-* **Natural Language Processing** – Sophisticated text analysis and code comprehension
-
-### 🌐 **Web & Interface**
+* **Google Gemini 2.5 Flash** – Advanced AI for code understanding and generation (`google-generativeai`)
 * **Streamlit** – Interactive web interface with real-time updates and progress tracking
-* **Mermaid.js** – Automatic diagram generation for architecture visualization
-* **Markdown** – Clean, exportable documentation format with GitHub compatibility
-* **HTML/CSS** – Custom styling for enhanced user experience
-
-### 🔧 **Backend & Infrastructure**
 * **GitPython** – Seamless Git repository operations and cloning
 * **Jaseci Runtime** – Local database and walker execution engine for caching
-* **Python 3.8+** – Core runtime environment with extensive library support
-* **PyYAML** – Configuration and data handling for structured processing
-* **Requests** – HTTP communication and API integration
-
-### 🛠️ **Development & Analysis Tools**
-* **VS Code** – Recommended IDE with Jac language support
 * **Git** – Version control and repository management
-* **File System Integration** – Recursive directory traversal and smart filtering
-* **Chunk Processing** – Efficient handling of large codebases
 
 > ![Python](https://img.shields.io/badge/python-3670A0?logo=python&logoColor=FFFF00)
 > ![Jac](https://img.shields.io/badge/JacLang-%23009b77.svg?logoColor=white)
@@ -243,54 +226,12 @@ Codebase-Genius/
 
 ## 🚀 Future Enhancements
 
-### 🎯 **Advanced AI Capabilities**
-- **🤖 Multi-Model Support**: Integration with GPT-4, Claude, and other LLMs for comparative analysis
-- **🧠 Custom Fine-Tuned Models**: Framework-specific models for better understanding of domain-specific code
-- **💡 Interactive Q&A**: Real-time code explanation with conversational AI assistance
-- **🔄 Iterative Improvement**: AI learns from user feedback to generate better tutorials over time
-
-### 🔍 **Enhanced Code Analysis**
-- **📊 Dependency Visualization**: Interactive dependency graphs and impact analysis
-- **🔒 Security Analysis**: Automated vulnerability detection and security best practices
-- **⚡ Performance Insights**: Code efficiency analysis and optimization suggestions
-- **📈 Code Quality Metrics**: Maintainability, complexity, and readability scores
-
-### 🌐 **Platform & Integration**
-- **🔌 VS Code Extension**: In-editor tutorial generation and code explanation
-- **⚙️ GitHub Action**: Automated documentation generation in CI/CD pipelines
-- **🤝 API Access**: RESTful API for integration with other developer tools
-- **☁️ Cloud Deployment**: Scalable cloud service for team and enterprise use
-
-### 📊 **Advanced Visualizations**
-- **🎨 3D Architecture Diagrams**: Interactive 3D representations of system architecture
-- **🎬 Code Flow Animations**: Dynamic visualizations showing data and control flow
-- **📱 Mobile-Responsive UI**: Optimized experience for mobile and tablet devices
-- **🎨 Custom Themes**: Dark/light modes and customizable tutorial templates
-
-### 🤝 **Collaborative Features**
-- **👥 Team Workspaces**: Shared tutorial libraries and collaborative editing
-- **🌍 Community Hub**: Public repository of generated tutorials with ratings
-- **📝 Peer Review System**: Community-driven improvements to generated content
-- **💬 Discussion Integration**: Comment threads and Q&A sections within tutorials
-
-### 🎓 **Educational Enhancements**
-- **📚 Learning Paths**: Curated sequences of tutorials for skill development
-- **🏆 Progress Tracking**: User progress and achievement system
-- **🎯 Skill Assessment**: Automated quizzes and coding challenges
-- **📖 Multi-Language Support**: Tutorials in different human languages
-
-### 🔧 **Technical Improvements**
-- **⚡ Performance Optimization**: Faster processing for large repositories
-- **🗄️ Database Scaling**: Support for thousands of cached tutorials
-- **🔄 Real-Time Updates**: Live tutorial regeneration when repositories change
-- **📱 Offline Mode**: Download tutorials for offline reading and study
-
-### 🌟 **Innovation Labs**
-- **🎙️ Voice-to-Tutorial**: Generate tutorials from verbal descriptions
-- **📸 Screenshot Analysis**: Extract code understanding from repository screenshots
-- **🔗 Cross-Repository Learning**: Find similar patterns across multiple projects
-- **🤖 AI Code Generation**: Generate example code based on tutorial content
-
+- **Multi-Model Support**: Integration with GPT-4, Claude, and other LLMs for comparative analysis
+- **Interactive Q&A**: Real-time code explanation with conversational AI assistance
+- **Discussion Integration**: Comment threads and Q&A sections within tutorials
+- **Multi-Language Support**: Tutorials in different human languages
+- **Database Scaling**: Support for thousands of cached tutorials
+- **Voice-to-Tutorial**: Generate tutorials from verbal descriptions
 
 ---
 
