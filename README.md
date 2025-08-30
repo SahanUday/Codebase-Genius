@@ -135,7 +135,7 @@ graph TB
 **All these tutorials are generated entirely by using Codebase Genius!**
 
 - **[Airvix-App](./generated%20tutorials/AirvixApp_tutorial.md)** - Smart AC Control with Firebase & Flutter (`Dart + Firebase + IoT`)
-- **[Intelligent-Command-ControlSystem](./generated%20tutorials/IntelligentCommandControlSystem_tutorial.md)** - Voice-controlled IoT devices with ESP32 (`Jac + Python + ESP32/C++`)
+- **[Intelligent-Command-ControlSystem](./generated%20tutorials/IntelligentCommandControlSystem_tutorial.md)** - Command-controlled IoT devices with ESP32 (`Jac + Python + ESP32/C++`)
 - **[Feedback-Agent](./generated%20tutorials/FeedbackAgent_tutorial.md)** - Customer sentiment analysis with AI (`Python + Streamlit + AI`)
 - **[Vocabulary-Trainer](./generated%20tutorials/VocabularyTrainer_tutorial.md)** - AI-powered vocabulary learning game (`Jac + Python + LLM`)
   
