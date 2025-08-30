@@ -2,11 +2,11 @@
 
 An AI-powered tool that transforms any GitHub repository into comprehensive, beginner-friendly tutorials automatically. Turn complex codebases into educational masterpieces with the power of AI!
 
-## 🌟 Overview
+## Overview
 
 **Codebase Genius** revolutionizes how developers understand and learn from unfamiliar codebases. Instead of spending hours digging through code, documentation, and trying to understand project architecture, our AI-powered system does the heavy lifting for you.
 
-### 💡 The Idea
+### The Idea
 
 Imagine being able to:
 - **Clone any GitHub repository** and instantly get a complete tutorial
@@ -18,18 +18,20 @@ Imagine being able to:
 
 Codebase Genius works with **any type of repository** - whether it's Python, JavaScript, Java, C++, Flutter, or even specialized languages like Jac. Our AI understands the patterns, extracts the core concepts, and creates structured learning materials that make sense to developers at any level.
 
-## 🏗️ High-Level Architecture
+---
+
+## High-Level Architecture
 
 Our system follows a clean, modular architecture with three main components working in harmony:
 
 ```mermaid
 graph TB
-    subgraph "🌐 Frontend Layer"
+    subgraph "Frontend Layer"
         UI[Streamlit Web Interface]
         UI --> |User Input| INPUT[Repository URL & Path]
     end
     
-    subgraph "🧠 AI Processing Layer"
+    subgraph "AI Processing Layer"
         SUPERVISOR[Supervisor Walker]
         REPO[RepoMapper Node]
         CODE[CodeAnalyzer Node] 
@@ -40,29 +42,27 @@ graph TB
         CODE --> DOC
     end
     
-    subgraph "🔧 Backend Services"
+    subgraph "Backend Services"
         GIT[Git Clone Service]
         LLM[Gemini 2.5 Flash LLM]
-        DB[(Jaseci Database)]
+        DB[(Jac local Database)]
         FILE[File System]
     end
     
-    subgraph "📊 Output Generation"
+    subgraph "Output Generation"
         OVERVIEW[Project Overview]
         CHAPTERS[Tutorial Chapters]
-        DIAGRAMS[Mermaid Diagrams]
     end
     
     INPUT --> SUPERVISOR
     REPO --> GIT
     REPO --> FILE
-    CODE --> LLM
-    DOC --> LLM
-    DOC --> DB
+    CODE <--> LLM
+    DOC <--> LLM
+    DOC <--> DB
     
     DOC --> OVERVIEW
     DOC --> CHAPTERS
-    DOC --> DIAGRAMS
     
     style UI fill:#E3F2FD,stroke:#1976D2,stroke-width:3px
     style SUPERVISOR fill:#E8F5E8,stroke:#388E3C,stroke-width:3px
@@ -70,30 +70,33 @@ graph TB
     style DB fill:#F3E5F5,stroke:#7B1FA2,stroke-width:3px
 ```
 
-## ⚡ Core Functionalities
+---
 
-### � **Intelligent Repository Analysis**
+## Core Functionalities
+
+### **Intelligent Repository Analysis**
 - **Smart File Filtering**: Automatically identifies and focuses on essential source code files
 - **Abstraction Extraction**: Uses AI to identify key programming concepts and patterns
 - **Relationship Mapping**: Discovers how different components interact with each other
 - **Architecture Understanding**: Comprehends the overall system design and data flow
 
-### 📚 **AI-Powered Tutorial Generation**
+### **AI-Powered Tutorial Generation**
 - **Chapter Organization**: Structures content in logical learning progression
 - **Beginner-Friendly Explanations**: Converts complex code into understandable concepts
 - **Visual Diagrams**: Generates Mermaid diagrams for architectural understanding
-- **Code Examples**: Provides relevant code snippets with detailed explanations
 
-### 🌐 **Universal Language Support**
+### **Universal Language Support**
 - **Multi-Language Compatibility**: Works with Python, JavaScript, Java, C++, Flutter, Dart, Go, Rust, and more
 - **Framework Recognition**: Understands popular frameworks like React, Django, Spring, Flutter, etc.
 - **Specialized Languages**: Supports unique languages like Jac (Jaseci Action Language)
 - **Mixed Codebases**: Handles projects with multiple programming languages
 
-### 🗄️ **Local Database Integration**
-- **Jaseci Database**: Serves tutorials through local Jaseci database for fast access
+### **Local Database Integration**
+- **Jac Database**: Serves tutorials through local database for fast access
 - **Caching System**: Stores processed tutorials to avoid regeneration
 - **Persistent Storage**: Maintains generated content across sessions
+
+---
 
 ## 🚀 Features
 
