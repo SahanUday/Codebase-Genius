@@ -91,8 +91,8 @@ Here's a look at how the Natural Language Command Interpreter processes your inp
 
 ```mermaid
 graph TD
-    CommandControlledUI(Streamlit UI) --> |User Input (NL)| NLCommandInterpreter(Jac Server)
-    NLCommandInterpreter --> |Processes with| LLM(Large Language Model)
+    CommandControlledUI[Streamlit UI] --> |User Input NL| NLCommandInterpreter[Jac Server]
+    NLCommandInterpreter --> |Processes with| LLM[Large Language Model]
     LLM --> |Structured Command| NLCommandInterpreter
     NLCommandInterpreter --> |Reports Parsed Command| CommandControlledUI
 ```
@@ -167,9 +167,9 @@ Here's how the ESP32 firmware interacts with the LED Actuator Module:
 
 ```mermaid
 graph TD
-    ESP32DeviceController(ESP32 Firmware) --> |Logical LED Command (e.g., "GREEN", "ON")| LEDActuatorModule(LED Actuator)
-    LEDActuatorModule --> |Maps to Pin| GPIO_PIN(Physical GPIO Pin)
-    GPIO_PIN --> |Controls Power| PhysicalLED(Physical LED)
+    ESP32DeviceController[ESP32 Firmware] --> |Logical LED Command e.g. GREEN, ON| LEDActuatorModule[LED Actuator]
+    LEDActuatorModule --> |Maps to Pin| GPIO_PIN[Physical GPIO Pin]
+    GPIO_PIN --> |Controls Power| PhysicalLED[Physical LED]
 ```
 
 The ESP32 Device Controller sends a logical command (like "GREEN", "ON") to the LED Actuator. The module then figures out which physical GPIO pin is connected to the green LED, sends the correct power signal, and lights up the Physical LED.
@@ -203,10 +203,10 @@ Let's see how the ESP32 uses the Delayed Action Scheduler:
 
 ```mermaid
 graph TD
-    ESP32DeviceController(ESP32 Firmware) --> |Schedule Action (LED, Delay)| DelayedActionScheduler(Action Scheduler)
-    DelayedActionScheduler --> |Waits for Delay| Timer(Internal Timer)
+    ESP32DeviceController[ESP32 Firmware] --> |Schedule Action LED with Delay| DelayedActionScheduler[Action Scheduler]
+    DelayedActionScheduler --> |Waits for Delay| Timer[Internal Timer]
     Timer --> |Triggers Action| DelayedActionScheduler
-    DelayedActionScheduler --> |Executes Command| LEDActuatorModule(LED Actuator)
+    DelayedActionScheduler --> |Executes Command| LEDActuatorModule[LED Actuator]
 ```
 
 The ESP32 Device Controller tells the Delayed Action Scheduler to perform an action (like controlling an LED) after a certain delay. The Scheduler then uses an Internal Timer to count down. Once the delay is over, the Timer triggers the Scheduler, which then executes the command by interacting with modules like the LED Actuator Module.
