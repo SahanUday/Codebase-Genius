@@ -61,5 +61,3 @@ Use **Codebase Genius** to transform any GitHub repository into a comprehensive 
 ---
 
 🤯 **All these tutorials are generated entirely by AI by crawling GitHub repositories!**
-
-*Made with ❤️ by [Codebase Genius](../README.md)*
