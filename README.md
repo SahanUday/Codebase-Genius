@@ -109,6 +109,11 @@ graph TB
            Example: E:\Projects\MyAnalysis\awesome-project
 ```
 
+<div align="center">
+  <img src="./assets/webapp_input.jpg" alt="Codebase Genius Input Interface" width="800" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+  <p><em>Input interface for providing GitHub repository URL and local directory path</em></p>
+</div>
+
 ### **What You Get**
 <div align="center">
   <img src="./assets/webapp.jpg" alt="Codebase Genius Web Interface" width="800" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
@@ -226,16 +231,18 @@ Codebase-Genius/
 
 ## 🚀 Future Enhancements
 
+**Enhanced Validation & Reliability**: Implement comprehensive validation mechanisms across all system components to ensure robust error handling and improved user experience.
+
 - **Multi-Model Support**: Integration with GPT-4, Claude, and other LLMs for comparative analysis
 - **Interactive Q&A**: Real-time code explanation with conversational AI assistance
 - **Discussion Integration**: Comment threads and Q&A sections within tutorials
 - **Multi-Language Support**: Tutorials in different human languages
 - **Database Scaling**: Support for thousands of cached tutorials
 - **Voice-to-Tutorial**: Generate tutorials from verbal descriptions
+- **Add Validation Conditions**:  For Repository URLs, Local Directory Paths, Code Quality Assessment, API Rate Limiting etc.
 
 ---
 
 ## 📜 License
 
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
-
