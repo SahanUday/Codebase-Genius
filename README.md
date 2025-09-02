@@ -38,8 +38,8 @@ graph TB
         DOC[DocGenie Node]
         
         SUPERVISOR --> REPO
-        REPO --> CODE
-        CODE --> DOC
+        SUPERVISOR --> CODE
+        SUPERVISOR --> DOC
     end
     
     subgraph "Backend Services"
