@@ -105,6 +105,12 @@ graph TB
 - **Caching System**: Stores processed tutorials to avoid regeneration
 - **Persistent Storage**: Maintains generated content across sessions
 
+### **Tutorial Export & Download**
+- **Markdown Export**: Download complete tutorials as `.md` files to your local computer
+- **Streamlit Integration**: Seamless download functionality through the web interface
+- **Portable Format**: Generated tutorials can be viewed, edited, and shared offline
+- **One-Click Download**: Simple "Download Tutorial" button for instant file access
+
 ---
 
 ## 📥 Input & 📤 Output
