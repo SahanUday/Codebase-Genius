@@ -250,6 +250,13 @@ Codebase-Genius/
 
 ---
 
+## 👥 Team & Credits
+
+- This project was solely created and developed by **Team FutureGEN**.  
+
+
+---
+
 ## 📜 License
 
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
