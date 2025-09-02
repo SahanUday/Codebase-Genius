@@ -128,8 +128,8 @@ graph TB
 ### **Watch the Magic in Action**
 
 <div align="center">
-  <a href="https://youtu.be/your_demo_video_id" target="_blank">
-    <img src="https://img.youtube.com/vi/your_demo_video_id/maxresdefault.jpg" width="600" alt="Codebase Genius Demo Video" style="cursor: pointer; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+  <a href="https://www.youtube.com/watch?v=HP4tnDDxezI" target="_blank">
+    <img src="https://img.youtube.com/vi/HP4tnDDxezI/maxresdefault.jpg" width="600" alt="Codebase Genius Demo Video" style="cursor: pointer; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
   </a>
   <p><em>🎥 See how Codebase Genius transforms complex repositories into beginner-friendly tutorials</em></p>
 </div>
