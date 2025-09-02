@@ -137,7 +137,6 @@ graph TB
 
 > Also you can download the complete tutorial as the Markdown file by clicking "Download Tutorial"
 
-
 ## 💡 Development Tutorial & Demonstration
 
 ### **Watch the Magic in Action**
